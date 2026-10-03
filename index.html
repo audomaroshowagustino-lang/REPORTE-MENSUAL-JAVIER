@@ -107,21 +107,15 @@
         
         .instruccion { text-align: center; color: #d35400; font-size: 20px; font-weight: bold; background: #fdf2e9; padding: 18px; border-radius: 8px; margin-bottom: 30px; border-left: 6px solid #e67e22;}
 
-        /* === Estilos Nativos para los Carruseles (Secciones 5 y 6) === */
+        /* === Estilos de Carruseles (Secciones 5 y 6) === */
         .carousel-wrapper {
             position: relative; width: 100%; max-width: 900px; margin: 0 auto; 
             overflow: hidden; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
             background: #111;
         }
-        .carousel-track {
-            display: flex; transition: transform 0.4s ease-in-out;
-        }
-        .carousel-slide {
-            min-width: 100%; display: flex; justify-content: center; align-items: center;
-        }
-        .carousel-slide video, .carousel-slide img {
-            width: 100%; height: auto; max-height: 550px; object-fit: contain;
-        }
+        .carousel-track { display: flex; transition: transform 0.4s ease-in-out; }
+        .carousel-slide { min-width: 100%; display: flex; justify-content: center; align-items: center; }
+        .carousel-slide video, .carousel-slide img { width: 100%; height: auto; max-height: 550px; object-fit: contain; }
         .carousel-imagenes { background: #f4f7f6; border: 1px solid #ecf0f1; }
         
         .carousel-btn {
@@ -225,24 +219,20 @@
             <svg viewBox="-40 0 860 290">
                 <text x="-15" y="32" class="axis-label" text-anchor="end">400k</text>
                 <line x1="0" y1="27.7" x2="800" y2="27.7" class="grid-line" />
-                
                 <text x="-15" y="88" class="axis-label" text-anchor="end">300k</text>
                 <line x1="0" y1="83.3" x2="800" y2="83.3" class="grid-line" />
-                
                 <text x="-15" y="143" class="axis-label" text-anchor="end">200k</text>
                 <line x1="0" y1="138.8" x2="800" y2="138.8" class="grid-line" />
-                
                 <text x="-15" y="198" class="etiqueta-100k" text-anchor="end">100k</text>
                 <line x1="0" y1="194.4" x2="800" y2="194.4" class="linea-100k" />
                 <text x="810" y="198" class="etiqueta-100k" text-anchor="start">Meta Base</text>
-
                 <text x="-15" y="254" class="axis-label" text-anchor="end">0</text>
                 <line x1="0" y1="250" x2="800" y2="250" stroke="#bdc3c7" stroke-width="2" />
                 
                 <path d="M 0,250 L 0,232.5 C 44.4,232.5 44.4,94.1 88.8,94.1 C 133.3,94.1 133.3,189.6 177.7,189.6 C 222.2,189.6 222.2,213.3 266.6,213.3 C 311.1,213.3 311.1,10.3 355.5,10.3 C 400,10.3 400,170.3 444.4,170.3 C 488.8,170.3 488.8,16.1 533.3,16.1 C 577.7,16.1 577.7,177.2 622.2,177.2 C 666.6,177.2 666.6,161 711.1,161 C 755.5,161 755.5,246.4 800,246.4 L 800,250 Z" fill="rgba(52, 152, 219, 0.15)"/>
                 <path d="M 0,232.5 C 44.4,232.5 44.4,94.1 88.8,94.1 C 133.3,94.1 133.3,189.6 177.7,189.6 C 222.2,189.6 222.2,213.3 266.6,213.3 C 311.1,213.3 311.1,10.3 355.5,10.3 C 400,10.3 400,170.3 444.4,170.3 C 488.8,170.3 488.8,16.1 533.3,16.1 C 577.7,16.1 577.7,177.2 622.2,177.2 C 666.6,177.2 666.6,161 711.1,161 C 755.5,161 755.5,246.4 800,246.4" fill="none" stroke="#2980b9" stroke-width="4"/>
 
-                <!-- Puntos con data-attributes -->
+                <!-- Puntos interactivos -->
                 <circle cx="0" cy="232.5" r="7" fill="#3498db" class="punto-grafica" data-val="$31,356" />
                 <text x="0" y="275" class="axis-label" text-anchor="middle">Ene</text>
                 <circle cx="88.8" cy="94.1" r="7" fill="#3498db" class="punto-grafica" data-val="$280,545" />
@@ -342,19 +332,16 @@
                 <div class="carousel-slide">
                     <video controls>
                         <source src="RUTA_AL_VIDEO_1.mp4" type="video/mp4">
-                        Tu navegador no soporta la etiqueta de video.
                     </video>
                 </div>
                 <div class="carousel-slide">
                     <video controls>
                         <source src="RUTA_AL_VIDEO_2.mp4" type="video/mp4">
-                        Tu navegador no soporta la etiqueta de video.
                     </video>
                 </div>
                 <div class="carousel-slide">
                     <video controls>
                         <source src="RUTA_AL_VIDEO_3.mp4" type="video/mp4">
-                        Tu navegador no soporta la etiqueta de video.
                     </video>
                 </div>
             </div>
@@ -387,7 +374,7 @@
         <p style="text-align:center; color:#7f8c8d; margin-top:20px;">Navega por las galerías comparativas.</p>
     </div>
 
-    <!-- 7. Comparativo VDT (En construcción) -->
+    <!-- 7. Comparativo VDT -->
     <div id="vdt" class="tab-content">
         <div class="titulo-seccion">Comparativo VDT</div>
         <div style="text-align: center; padding: 100px 20px; color: #95a5a6; border: 2px dashed #bdc3c7; border-radius: 10px; background: #fdfdfd; margin-top: 30px;">
@@ -398,152 +385,152 @@
             <p style="margin-top:10px; font-size:16px;">La funcionalidad para el Comparativo VDT será implementada aquí próximamente.</p>
         </div>
     </div>
-
 </div>
 
 <script>
-    // Todo este bloque se ejecutará de forma directa sin esperar envoltorios conflictivos
-    
-    // 1. Lógica para Pestañas
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            tabContents.forEach(content => content.classList.remove('active'));
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            
-            const targetId = this.getAttribute('data-target');
-            document.getElementById(targetId).classList.add('active');
-            this.classList.add('active');
-        });
-    });
-
-    // 2. Lógica para el SVG Tooltip
-    const puntos = document.querySelectorAll('.punto-grafica');
-    const tooltip = document.getElementById('tooltip-svg');
-    const contenedorSvg = document.getElementById('contenedor-svg');
-
-    puntos.forEach(punto => {
-        ['mousemove', 'touchstart'].forEach(evt => {
-            punto.addEventListener(evt, function(e) {
-                const valor = this.getAttribute('data-val');
-                tooltip.style.opacity = '1';
-                tooltip.innerHTML = valor;
-                
-                const rect = contenedorSvg.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                
-                const x = clientX - rect.left;
-                const y = clientY - rect.top;
-                
-                tooltip.style.left = x + 'px';
-                tooltip.style.top = (y - 15) + 'px';
-            });
-        });
+    // Se restaura el envoltorio original que funcionó en la versión anterior
+    document.addEventListener("DOMContentLoaded", function() {
         
-        ['mouseout', 'touchend'].forEach(evt => {
-            punto.addEventListener(evt, function() {
-                tooltip.style.opacity = '0';
+        // 1. Lógica para Pestañas
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                tabContents.forEach(content => content.classList.remove('active'));
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                
+                if(targetElement) {
+                    targetElement.classList.add('active');
+                }
+                this.classList.add('active');
             });
         });
-    });
 
-    // 3. Bases de datos para Top Mensual
-    const clientesPorMes = [
-        ['ADSA', 'ING LUIS', 'NIEVES'],
-        ['BONATTI', 'BONATTI SPA', 'ING HECTOR'],
-        ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
-        ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
-        ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
-        ['JADE URBANA', 'GRUPO PYRGOS', 'ESCOPICO'],
-        ['BONATTI', 'ING JAIME NIGMO', 'ADSA'],
-        ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ENALTO'],
-        ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ESCOPICO'],
-        ['ESCOPICO', 'Sin Registro', 'Sin Registro']
-    ];
+        // 2. Lógica para el SVG Tooltip
+        const puntos = document.querySelectorAll('.punto-grafica');
+        const tooltip = document.getElementById('tooltip-svg');
+        const contenedorSvg = document.getElementById('contenedor-svg');
 
-    const montosPorMes = [
-        [15042, 5880, 4200],
-        [157500, 32221, 32199],
-        [60863, 19102, 8773],
-        [27099, 9081, 8226],
-        [272150, 60016, 34460],
-        [52534, 33897, 15754],
-        [337772, 13219, 12225],
-        [38787, 38725, 13904],
-        [56337, 29061, 15968],
-        [6395, 0, 0]
-    ];
-
-    function formatDinero(num) {
-        if(num === 0 || num === "-") return "$0";
-        return "$" + num.toLocaleString('en-US');
-    }
-
-    // 4. Lógica Interactiva para Barras
-    const barras = document.querySelectorAll('.bar-col');
-    
-    barras.forEach(barra => {
-        barra.addEventListener('click', function() {
-            barras.forEach(b => {
-                b.classList.remove('selected');
-                b.querySelector('.bar').style.background = '#3498db';
+        if(tooltip && contenedorSvg) {
+            puntos.forEach(punto => {
+                ['mousemove', 'touchstart'].forEach(evt => {
+                    punto.addEventListener(evt, function(e) {
+                        const valor = this.getAttribute('data-val');
+                        tooltip.style.opacity = '1';
+                        tooltip.innerHTML = valor;
+                        
+                        const rect = contenedorSvg.getBoundingClientRect();
+                        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                        
+                        tooltip.style.left = (clientX - rect.left) + 'px';
+                        tooltip.style.top = (clientY - rect.top - 15) + 'px';
+                    });
+                });
+                
+                ['mouseout', 'touchend'].forEach(evt => {
+                    punto.addEventListener(evt, function() {
+                        tooltip.style.opacity = '0';
+                    });
+                });
             });
-            
-            this.classList.add('selected');
-            this.querySelector('.bar').style.background = '#e74c3c';
+        }
 
-            const indice = parseInt(this.getAttribute('data-index'));
-            const mes = this.getAttribute('data-mes');
+        // 3. Bases de datos para Top Mensual
+        const clientesPorMes = [
+            ['ADSA', 'ING LUIS', 'NIEVES'],
+            ['BONATTI', 'BONATTI SPA', 'ING HECTOR'],
+            ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
+            ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
+            ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
+            ['JADE URBANA', 'GRUPO PYRGOS', 'ESCOPICO'],
+            ['BONATTI', 'ING JAIME NIGMO', 'ADSA'],
+            ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ENALTO'],
+            ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ESCOPICO'],
+            ['ESCOPICO', 'Sin Registro', 'Sin Registro']
+        ];
 
-            document.getElementById('tituloClientes').innerHTML = 'Top 3 Clientes - ' + mes + ' 2026';
-            
-            document.getElementById('cliente1-nombre').innerHTML = '1. ' + clientesPorMes[indice][0];
-            document.getElementById('cliente1-monto').innerHTML = formatDinero(montosPorMes[indice][0]);
-            
-            document.getElementById('cliente2-nombre').innerHTML = '2. ' + clientesPorMes[indice][1];
-            document.getElementById('cliente2-monto').innerHTML = formatDinero(montosPorMes[indice][1]);
-            
-            document.getElementById('cliente3-nombre').innerHTML = '3. ' + clientesPorMes[indice][2];
-            document.getElementById('cliente3-monto').innerHTML = formatDinero(montosPorMes[indice][2]);
+        const montosPorMes = [
+            [15042, 5880, 4200],
+            [157500, 32221, 32199],
+            [60863, 19102, 8773],
+            [27099, 9081, 8226],
+            [272150, 60016, 34460],
+            [52534, 33897, 15754],
+            [337772, 13219, 12225],
+            [38787, 38725, 13904],
+            [56337, 29061, 15968],
+            [6395, 0, 0]
+        ];
+
+        function formatDinero(num) {
+            if(num === 0 || num === "-") return "$0";
+            return "$" + num.toLocaleString('en-US');
+        }
+
+        // 4. Lógica Interactiva para Barras
+        const barras = document.querySelectorAll('.bar-col');
+        
+        barras.forEach(barra => {
+            barra.addEventListener('click', function() {
+                barras.forEach(b => {
+                    b.classList.remove('selected');
+                    b.querySelector('.bar').style.background = '#3498db';
+                });
+                
+                this.classList.add('selected');
+                this.querySelector('.bar').style.background = '#e74c3c';
+
+                const indice = parseInt(this.getAttribute('data-index'));
+                const mes = this.getAttribute('data-mes');
+
+                document.getElementById('tituloClientes').innerHTML = 'Top 3 Clientes - ' + mes + ' 2026';
+                document.getElementById('cliente1-nombre').innerHTML = '1. ' + clientesPorMes[indice][0];
+                document.getElementById('cliente1-monto').innerHTML = formatDinero(montosPorMes[indice][0]);
+                document.getElementById('cliente2-nombre').innerHTML = '2. ' + clientesPorMes[indice][1];
+                document.getElementById('cliente2-monto').innerHTML = formatDinero(montosPorMes[indice][1]);
+                document.getElementById('cliente3-nombre').innerHTML = '3. ' + clientesPorMes[indice][2];
+                document.getElementById('cliente3-monto').innerHTML = formatDinero(montosPorMes[indice][2]);
+            });
         });
-    });
 
-    // ======================================================
-    // 5. LÓGICA PARA LOS CARRUSELES (VIDEOS E IMÁGENES)
-    // ======================================================
-    const carruselBtns = document.querySelectorAll('.carousel-btn');
-    
-    carruselBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const trackId = this.getAttribute('data-carousel');
-            const direction = parseInt(this.getAttribute('data-dir'));
-            const track = document.getElementById(trackId);
-            
-            const totalSlides = parseInt(track.getAttribute('data-total'));
-            let currentSlide = parseInt(track.getAttribute('data-current'));
-            
-            // Pausar cualquier video reproduciéndose en el carrusel actual
-            if(trackId === 'track-videos') {
-                const videos = track.querySelectorAll('video');
-                videos.forEach(v => v.pause());
-            }
+        // ======================================================
+        // 5. LÓGICA PARA LOS CARRUSELES (VIDEOS E IMÁGENES)
+        // ======================================================
+        const carruselBtns = document.querySelectorAll('.carousel-btn');
+        
+        carruselBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const trackId = this.getAttribute('data-carousel');
+                const direction = parseInt(this.getAttribute('data-dir'));
+                const track = document.getElementById(trackId);
+                
+                if(!track) return; // Validación de seguridad
 
-            // Calcular el nuevo índice (Loop)
-            currentSlide += direction;
-            if(currentSlide < 0) currentSlide = totalSlides - 1;
-            if(currentSlide >= totalSlides) currentSlide = 0;
-            
-            // Actualizar el estado
-            track.setAttribute('data-current', currentSlide);
-            
-            // Mover el contenedor visualmente (-100% por slide)
-            track.style.transform = translateX(-${currentSlide * 100}%);
+                const totalSlides = parseInt(track.getAttribute('data-total'));
+                let currentSlide = parseInt(track.getAttribute('data-current'));
+                
+                // Pausar videos al cambiar
+                if(trackId === 'track-videos') {
+                    const videos = track.querySelectorAll('video');
+                    videos.forEach(v => v.pause());
+                }
+
+                // Calcular el índice (Looping infinito)
+                currentSlide += direction;
+                if(currentSlide < 0) currentSlide = totalSlides - 1;
+                if(currentSlide >= totalSlides) currentSlide = 0;
+                
+                track.setAttribute('data-current', currentSlide);
+                track.style.transform = translateX(-${currentSlide * 100}%);
+            });
         });
-    });
 
+    });
 </script>
 
 </body>
