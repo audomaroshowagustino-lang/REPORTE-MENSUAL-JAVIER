@@ -1,0 +1,439 @@
+X<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Ejecutivo de Ventas 2026</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px; 
+            font-size: 18px;
+        }
+        .container { 
+            max-width: 1300px; 
+            margin: auto; 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+            box-sizing: border-box;
+        }
+        h1 { text-align: center; color: #2c3e50; font-weight: 300; letter-spacing: 1px; margin-bottom: 40px; font-size: 40px;}
+        
+        /* Pestañas */
+        .tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px;}
+        .tab-button { 
+            background: transparent; border: none; padding: 15px 30px; margin: 0 10px; 
+            cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.3s; 
+            font-size: 20px; 
+            color: #7f8c8d;
+        }
+        .tab-button:hover { color: #3498db; background: #f0f8ff; }
+        .tab-button.active { background: #3498db; color: white; box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);}
+        
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Contenedores Genéricos */
+        .chart-box { height: 450px; width: 100%; position: relative; margin-top: 30px; }
+        .titulo-seccion { text-align: center; font-size: 28px; color: #34495e; margin-bottom: 30px; font-weight: 600;}
+        
+        /* === 1. Diseño Acumulado Anual === */
+        .total-anual-container {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #2c3e50, #3498db); border-radius: 15px;
+            color: white; padding: 50px; margin-bottom: 40px; box-shadow: 0 10px 20px rgba(52, 152, 219, 0.2);
+        }
+        .total-anual-container h2 { margin: 0; font-size: 24px; font-weight: 300; text-transform: uppercase; letter-spacing: 2px; opacity: 0.9;}
+        .total-anual-container .monto-gigante { font-size: 90px; font-weight: bold; margin: 15px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);}
+        .total-anual-container p { font-size: 20px; }
+        
+        /* Tarjetas */
+        .summary-cards { display: flex; justify-content: space-around; margin-top: 30px; gap: 20px; }
+        .card { 
+            background: #fff; padding: 30px; border-radius: 10px; text-align: center; 
+            flex: 1; border: 1px solid #eee; border-top: 6px solid #3498db; box-shadow: 0 4px 6px rgba(0,0,0,0.04); transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 12px rgba(0,0,0,0.08); }
+        .card h3 { margin: 0 0 15px 0; color: #7f8c8d; font-size: 18px; text-transform: uppercase; font-weight: bold;}
+        .card p { margin: 0; font-size: 36px; font-weight: bold; color: #2c3e50; }
+
+        /* === 2. SVG Vectorial (Tendencia Curva con Escala) === */
+        .svg-container { position: relative; width: 100%; height: 450px; padding-left: 60px; padding-right: 30px; box-sizing: border-box;}
+        svg { width: 100%; height: 100%; overflow: visible; }
+        .grid-line { stroke: #ecf0f1; stroke-width: 1.5; stroke-dasharray: 6,6; }
+        .axis-label { font-size: 16px; fill: #95a5a6; font-weight: bold;}
+        .linea-100k { stroke: #e74c3c; stroke-width: 3; stroke-dasharray: 8,6; opacity: 0.7;}
+        .etiqueta-100k { fill: #e74c3c; font-size: 16px; font-weight: bold; }
+        
+        /* Hover de puntos en la gráfica */
+        .punto-grafica { cursor: pointer; transition: 0.2s; }
+        .punto-grafica:hover { r: 10; fill: #e74c3c; }
+        .tooltip-punto { 
+            position: absolute; background: rgba(44, 62, 80, 0.95); color: white; padding: 10px 15px; 
+            border-radius: 6px; font-size: 18px; font-weight: bold; pointer-events: none; opacity: 0; transition: 0.2s;
+            transform: translate(-50%, -150%); z-index: 10;
+        }
+
+        /* === 3. Gráfico de Dona CSS === */
+        .donut-container { display: flex; justify-content: center; align-items: center; height: 100%; gap: 80px; }
+        .donut-chart {
+            width: 350px; height: 350px; border-radius: 50%;
+            background: conic-gradient(#e74c3c 0% 73.67%, #bdc3c7 73.67% 100%);
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .donut-hole { width: 190px; height: 190px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column;}
+        .donut-hole span { font-size: 38px; font-weight: bold; color: #2c3e50;}
+        .donut-hole small { font-size: 18px; color: #7f8c8d; text-transform: uppercase;}
+        .legend { display: flex; flex-direction: column; gap: 30px; }
+        .legend-item { display: flex; align-items: center; font-weight: bold; font-size: 22px; color: #34495e;}
+        .legend-sub { font-weight: normal; font-size: 18px; color: #7f8c8d; display: block; margin-top: 5px; }
+        .color-box { width: 30px; height: 30px; border-radius: 6px; margin-right: 20px; flex-shrink: 0; }
+
+        /* === 4. Gráfico Barras Interactivas === */
+        .bars-container { display: flex; justify-content: space-between; align-items: flex-end; height: 350px; border-bottom: 3px solid #ecf0f1; padding-bottom: 5px; margin-top: 40px;}
+        .bar-col { width: 8%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; cursor: pointer; position: relative;}
+        .bar { width: 100%; background: #3498db; border-radius: 5px 5px 0 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bar-col:hover .bar, .bar-col.selected .bar { background: #e74c3c; filter: brightness(1.1); box-shadow: 0 -4px 12px rgba(231, 76, 60, 0.4);}
+        .bar-label { margin-top: 15px; font-size: 18px; font-weight: bold; color: #7f8c8d; pointer-events: none;}
+        .bar-tooltip { font-size: 16px; color: #2c3e50; font-weight: bold; margin-bottom: 8px; opacity: 0; transition: 0.3s; transform: translateY(10px); pointer-events: none;}
+        .bar-col:hover .bar-tooltip, .bar-col.selected .bar-tooltip { opacity: 1; transform: translateY(0); }
+        
+        .instruccion { text-align: center; color: #d35400; font-size: 20px; font-weight: bold; background: #fdf2e9; padding: 18px; border-radius: 8px; margin-bottom: 30px; border-left: 6px solid #e67e22;}
+
+        /* ========================================================
+           RESPONSIVE DESIGN (Media Queries para Teléfonos Móviles) 
+           ======================================================== */
+        @media (max-width: 768px) {
+            body { padding: 10px; font-size: 16px; }
+            .container { padding: 20px; }
+            h1 { font-size: 28px; margin-bottom: 20px; }
+            
+            /* Pestañas verticales en móvil */
+            .tabs { flex-direction: column; gap: 10px; border-bottom: none; }
+            .tab-button { width: 100%; margin: 0; padding: 12px; font-size: 16px; border: 1px solid #ecf0f1; }
+            
+            .titulo-seccion { font-size: 22px; margin-bottom: 20px; }
+            
+            /* Acumulado Anual Móvil */
+            .total-anual-container { padding: 30px 15px; margin-bottom: 20px; }
+            .total-anual-container h2 { font-size: 18px; text-align: center; }
+            .total-anual-container .monto-gigante { font-size: 45px; }
+            .total-anual-container p { font-size: 14px; text-align: center; }
+            
+            /* Tarjetas Apiladas */
+            .summary-cards { flex-direction: column; gap: 15px; }
+            .card { padding: 20px; }
+            .card h3 { font-size: 14px; }
+            .card p { font-size: 28px; }
+            
+            /* Gráfica de Tendencia Móvil */
+            .chart-box { height: auto; }
+            .svg-container { height: 250px; padding-left: 45px; padding-right: 15px; }
+            .axis-label, .etiqueta-100k { font-size: 14px; }
+            .tooltip-punto { font-size: 14px; padding: 6px 10px; }
+            
+            /* Gráfica de Dona Móvil */
+            .donut-container { flex-direction: column; gap: 30px; height: auto; }
+            .donut-chart { width: 220px; height: 220px; }
+            .donut-hole { width: 120px; height: 120px; }
+            .donut-hole span { font-size: 24px; }
+            .donut-hole small { font-size: 12px; }
+            .legend { gap: 15px; }
+            .legend-item { font-size: 16px; align-items: flex-start; }
+            .legend-sub { font-size: 14px; }
+            .color-box { width: 20px; height: 20px; }
+            
+            /* Gráfica de Barras Móvil */
+            .bars-container { height: 250px; }
+            .bar-label { font-size: 11px; margin-top: 8px; }
+            .bar-tooltip { font-size: 10px; margin-bottom: 5px; }
+            .instruccion { font-size: 14px; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dashboard Ejecutivo de Ventas 2026</h1>
+    
+    <div class="tabs">
+        <button class="tab-button active" data-target="anual">1. Volumen Acumulado Anual</button>
+        <button class="tab-button" data-target="mensual">2. Tendencia Mensual</button>
+        <button class="tab-button" data-target="mayo">3. Desglose Mayo</button>
+        <button class="tab-button" data-target="top-mensual">4. Top Mensual</button>
+    </div>
+
+    <!-- 1. Volumen Acumulado Anual -->
+    <div id="anual" class="tab-content active">
+        <div class="total-anual-container">
+            <h2>Volumen Facturado Acumulado (Sin IVA)</h2>
+            <div class="monto-gigante">$1,779,287</div>
+            <p style="margin:0; opacity:0.8;">Total consolidado de Enero a Octubre 2026</p>
+        </div>
+        
+        <div class="titulo-seccion">Top 3 Clientes del A&ntilde;o</div>
+        <div class="summary-cards">
+            <div class="card" style="border-top-color: #2ecc71;">
+                <h3>1. BONATTI</h3>
+                <p>$495,271</p>
+            </div>
+            <div class="card" style="border-top-color: #f1c40f;">
+                <h3>2. KEK&Eacute;N</h3>
+                <p>$272,149</p>
+            </div>
+            <div class="card" style="border-top-color: #9b59b6;">
+                <h3>3. CORROSION MASTER</h3>
+                <p>$125,965</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Tendencia Mensual (Curva y Ejes) -->
+    <div id="mensual" class="tab-content">
+        <div class="titulo-seccion">Curva de Tendencia de Facturaci&oacute;n</div>
+        <div class="svg-container" id="contenedor-svg">
+            <div id="tooltip-svg" class="tooltip-punto"></div>
+            
+            <svg viewBox="-40 0 860 290">
+                <text x="-15" y="32" class="axis-label" text-anchor="end">400k</text>
+                <line x1="0" y1="27.7" x2="800" y2="27.7" class="grid-line" />
+                
+                <text x="-15" y="88" class="axis-label" text-anchor="end">300k</text>
+                <line x1="0" y1="83.3" x2="800" y2="83.3" class="grid-line" />
+                
+                <text x="-15" y="143" class="axis-label" text-anchor="end">200k</text>
+                <line x1="0" y1="138.8" x2="800" y2="138.8" class="grid-line" />
+                
+                <text x="-15" y="198" class="etiqueta-100k" text-anchor="end">100k</text>
+                <line x1="0" y1="194.4" x2="800" y2="194.4" class="linea-100k" />
+                <text x="810" y="198" class="etiqueta-100k" text-anchor="start">Meta Base</text>
+
+                <text x="-15" y="254" class="axis-label" text-anchor="end">0</text>
+                <line x1="0" y1="250" x2="800" y2="250" stroke="#bdc3c7" stroke-width="2" />
+                
+                <path d="M 0,250 L 0,232.5 C 44.4,232.5 44.4,94.1 88.8,94.1 C 133.3,94.1 133.3,189.6 177.7,189.6 C 222.2,189.6 222.2,213.3 266.6,213.3 C 311.1,213.3 311.1,10.3 355.5,10.3 C 400,10.3 400,170.3 444.4,170.3 C 488.8,170.3 488.8,16.1 533.3,16.1 C 577.7,16.1 577.7,177.2 622.2,177.2 C 666.6,177.2 666.6,161 711.1,161 C 755.5,161 755.5,246.4 800,246.4 L 800,250 Z" fill="rgba(52, 152, 219, 0.15)"/>
+                
+                <path d="M 0,232.5 C 44.4,232.5 44.4,94.1 88.8,94.1 C 133.3,94.1 133.3,189.6 177.7,189.6 C 222.2,189.6 222.2,213.3 266.6,213.3 C 311.1,213.3 311.1,10.3 355.5,10.3 C 400,10.3 400,170.3 444.4,170.3 C 488.8,170.3 488.8,16.1 533.3,16.1 C 577.7,16.1 577.7,177.2 622.2,177.2 C 666.6,177.2 666.6,161 711.1,161 C 755.5,161 755.5,246.4 800,246.4" fill="none" stroke="#2980b9" stroke-width="4"/>
+
+                <circle cx="0" cy="232.5" r="7" fill="#3498db" class="punto-grafica" data-val="$31,356" />
+                <text x="0" y="275" class="axis-label" text-anchor="middle">Ene</text>
+                
+                <circle cx="88.8" cy="94.1" r="7" fill="#3498db" class="punto-grafica" data-val="$280,545" />
+                <text x="88.8" y="275" class="axis-label" text-anchor="middle">Feb</text>
+                
+                <circle cx="177.7" cy="189.6" r="7" fill="#3498db" class="punto-grafica" data-val="$108,562" />
+                <text x="177.7" y="275" class="axis-label" text-anchor="middle">Mar</text>
+                
+                <circle cx="266.6" cy="213.3" r="7" fill="#3498db" class="punto-grafica" data-val="$65,894" />
+                <text x="266.6" y="275" class="axis-label" text-anchor="middle">Abr</text>
+                
+                <circle cx="355.5" cy="10.3" r="7" fill="#3498db" class="punto-grafica" data-val="$431,330" />
+                <text x="355.5" y="275" class="axis-label" text-anchor="middle">May</text>
+                
+                <circle cx="444.4" cy="170.3" r="7" fill="#3498db" class="punto-grafica" data-val="$143,330" />
+                <text x="444.4" y="275" class="axis-label" text-anchor="middle">Jun</text>
+                
+                <circle cx="533.3" cy="16.1" r="7" fill="#3498db" class="punto-grafica" data-val="$420,863" />
+                <text x="533.3" y="275" class="axis-label" text-anchor="middle">Jul</text>
+                
+                <circle cx="622.2" cy="177.2" r="7" fill="#3498db" class="punto-grafica" data-val="$130,957" />
+                <text x="622.2" y="275" class="axis-label" text-anchor="middle">Ago</text>
+                
+                <circle cx="711.1" cy="161.0" r="7" fill="#3498db" class="punto-grafica" data-val="$160,056" />
+                <text x="711.1" y="275" class="axis-label" text-anchor="middle">Sep</text>
+                
+                <circle cx="800" cy="246.4" r="7" fill="#3498db" class="punto-grafica" data-val="$6,394" />
+                <text x="800" y="275" class="axis-label" text-anchor="middle">Oct</text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- 3. Desglose Mayo -->
+    <div id="mayo" class="tab-content">
+        <div class="titulo-seccion">Facturaci&oacute;n At&iacute;pica - Mayo 2026</div>
+        <div class="chart-box">
+            <div class="donut-container">
+                <div class="donut-chart">
+                    <div class="donut-hole">
+                        <span>$431k</span>
+                        <small>Total Mayo</small>
+                    </div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="color-box" style="background:#e74c3c;"></div>
+                        <div>
+                            Grupo (Kek&eacute;n, Xcanat&uacute;n, SIT)
+                            <span class="legend-sub">$317,741 (73.7%)</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background:#bdc3c7;"></div>
+                        <div>
+                            Resto del Mes
+                            <span class="legend-sub">$113,589 (26.3%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Top Mensual Interactivo -->
+    <div id="top-mensual" class="tab-content">
+        <p class="instruccion">&#9432; Selecciona la barra de cualquier mes para visualizar a sus 3 principales clientes.</p>
+        
+        <div class="bars-container">
+            <div class="bar-col" data-index="0" data-mes="Ene"><div class="bar-tooltip">$31k</div><div class="bar" style="height: 6.97%;"></div><div class="bar-label">Ene</div></div>
+            <div class="bar-col" data-index="1" data-mes="Feb"><div class="bar-tooltip">$280k</div><div class="bar" style="height: 62.34%;"></div><div class="bar-label">Feb</div></div>
+            <div class="bar-col" data-index="2" data-mes="Mar"><div class="bar-tooltip">$108k</div><div class="bar" style="height: 24.12%;"></div><div class="bar-label">Mar</div></div>
+            <div class="bar-col" data-index="3" data-mes="Abr"><div class="bar-tooltip">$65k</div><div class="bar" style="height: 14.64%;"></div><div class="bar-label">Abr</div></div>
+            <div class="bar-col selected" data-index="4" data-mes="May"><div class="bar-tooltip">$431k</div><div class="bar" style="height: 95.85%; background:#e74c3c;"></div><div class="bar-label">May</div></div>
+            <div class="bar-col" data-index="5" data-mes="Jun"><div class="bar-tooltip">$143k</div><div class="bar" style="height: 31.85%;"></div><div class="bar-label">Jun</div></div>
+            <div class="bar-col" data-index="6" data-mes="Jul"><div class="bar-tooltip">$420k</div><div class="bar" style="height: 93.53%;"></div><div class="bar-label">Jul</div></div>
+            <div class="bar-col" data-index="7" data-mes="Ago"><div class="bar-tooltip">$130k</div><div class="bar" style="height: 29.10%;"></div><div class="bar-label">Ago</div></div>
+            <div class="bar-col" data-index="8" data-mes="Sep"><div class="bar-tooltip">$160k</div><div class="bar" style="height: 35.57%;"></div><div class="bar-label">Sep</div></div>
+            <div class="bar-col" data-index="9" data-mes="Oct"><div class="bar-tooltip">$6k</div><div class="bar" style="height: 1.42%;"></div><div class="bar-label">Oct</div></div>
+        </div>
+        
+        <div class="titulo-seccion" id="tituloClientes" style="margin-top:50px;">Top 3 Clientes - May 2026</div>
+        
+        <div class="summary-cards">
+            <div class="card" style="border-top-color: #e74c3c;">
+                <h3 id="cliente1-nombre">1. KEK&Eacute;N</h3>
+                <p id="cliente1-monto">$272,150</p>
+            </div>
+            <div class="card" style="border-top-color: #3498db;">
+                <h3 id="cliente2-nombre">2. PLANEACION, CONST...</h3>
+                <p id="cliente2-monto">$60,016</p>
+            </div>
+            <div class="card" style="border-top-color: #9b59b6;">
+                <h3 id="cliente3-nombre">3. SIT</h3>
+                <p id="cliente3-monto">$34,460</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // 1. Lógica para Pestañas
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                tabContents.forEach(content => content.classList.remove('active'));
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                const targetId = this.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        // 2. Lógica para el SVG Tooltip
+        const puntos = document.querySelectorAll('.punto-grafica');
+        const tooltip = document.getElementById('tooltip-svg');
+        const contenedorSvg = document.getElementById('contenedor-svg');
+
+        puntos.forEach(punto => {
+            ['mousemove', 'touchstart'].forEach(evt => {
+                punto.addEventListener(evt, function(e) {
+                    const valor = this.getAttribute('data-val');
+                    tooltip.style.opacity = '1';
+                    tooltip.innerHTML = valor;
+                    
+                    const rect = contenedorSvg.getBoundingClientRect();
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    
+                    const x = clientX - rect.left;
+                    const y = clientY - rect.top;
+                    
+                    tooltip.style.left = x + 'px';
+                    tooltip.style.top = (y - 15) + 'px';
+                });
+            });
+            
+            ['mouseout', 'touchend'].forEach(evt => {
+                punto.addEventListener(evt, function() {
+                    tooltip.style.opacity = '0';
+                });
+            });
+        });
+
+        // 3. Bases de datos para Top Mensual
+        const clientesPorMes = [
+            ['ADSA', 'ING LUIS', 'NIEVES'],
+            ['BONATTI', 'ING HECTOR', 'ING JORGE H. '],
+            ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
+            ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
+            ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
+            ['JADE URBANA', 'GRUPO PYRGOS', 'ESCOPICO'],
+            ['BONATTI', 'ING JAIME NIGMO', 'ADSA'],
+            ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ENALTO'],
+            ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ESCOPICO'],
+            ['ESCOPICO', 'Sin Registro', 'Sin Registro']
+        ];
+
+        const montosPorMes = [
+            [15042, 5880, 4200],
+            [189721, 32198, 17665 ],
+            [60863, 19102, 8773],
+            [27099, 9081, 8226],
+            [272150, 60016, 34460],
+            [52534, 33897, 15754],
+            [337772, 13218, 12225],
+            [38787, 38725, 13904],
+            [56337, 40339, 15968],
+            [6395, 0, 0]
+        ];
+
+        function formatDinero(num) {
+            if(num === 0 || num === "-") return "$0";
+            return "$" + num.toLocaleString('en-US');
+        }
+
+        // 4. Lógica Interactiva para Barras
+        const barras = document.querySelectorAll('.bar-col');
+        
+        barras.forEach(barra => {
+            barra.addEventListener('click', function() {
+                barras.forEach(b => {
+                    b.classList.remove('selected');
+                    b.querySelector('.bar').style.background = '#3498db';
+                });
+                
+                this.classList.add('selected');
+                this.querySelector('.bar').style.background = '#e74c3c';
+
+                const indice = parseInt(this.getAttribute('data-index'));
+                const mes = this.getAttribute('data-mes');
+
+                document.getElementById('tituloClientes').innerHTML = 'Top 3 Clientes - ' + mes + ' 2026';
+                
+                document.getElementById('cliente1-nombre').innerHTML = '1. ' + clientesPorMes[indice][0];
+                document.getElementById('cliente1-monto').innerHTML = formatDinero(montosPorMes[indice][0]);
+                
+                document.getElementById('cliente2-nombre').innerHTML = '2. ' + clientesPorMes[indice][1];
+                document.getElementById('cliente2-monto').innerHTML = formatDinero(montosPorMes[indice][1]);
+                
+                document.getElementById('cliente3-nombre').innerHTML = '3. ' + clientesPorMes[indice][2];
+                document.getElementById('cliente3-monto').innerHTML = formatDinero(montosPorMes[indice][2]);
+            });
+        });
+
+    });
+</script>
+
+</body>
+</html>
