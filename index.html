@@ -24,7 +24,7 @@ X<!DOCTYPE html>
         }
         h1 { text-align: center; color: #2c3e50; font-weight: 300; letter-spacing: 1px; margin-bottom: 40px; font-size: 40px;}
         
-        /* Pestañas */
+        /* PestaÃ±as */
         .tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px;}
         .tab-button { 
             background: transparent; border: none; padding: 15px 30px; margin: 0 10px; 
@@ -39,11 +39,11 @@ X<!DOCTYPE html>
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Contenedores Genéricos */
+        /* Contenedores GenÃ©ricos */
         .chart-box { height: 450px; width: 100%; position: relative; margin-top: 30px; }
         .titulo-seccion { text-align: center; font-size: 28px; color: #34495e; margin-bottom: 30px; font-weight: 600;}
         
-        /* === 1. Diseño Acumulado Anual === */
+        /* === 1. DiseÃ±o Acumulado Anual === */
         .total-anual-container {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #2c3e50, #3498db); border-radius: 15px;
@@ -71,7 +71,7 @@ X<!DOCTYPE html>
         .linea-100k { stroke: #e74c3c; stroke-width: 3; stroke-dasharray: 8,6; opacity: 0.7;}
         .etiqueta-100k { fill: #e74c3c; font-size: 16px; font-weight: bold; }
         
-        /* Hover de puntos en la gráfica */
+        /* Hover de puntos en la grÃ¡fica */
         .punto-grafica { cursor: pointer; transition: 0.2s; }
         .punto-grafica:hover { r: 10; fill: #e74c3c; }
         .tooltip-punto { 
@@ -80,7 +80,7 @@ X<!DOCTYPE html>
             transform: translate(-50%, -150%); z-index: 10;
         }
 
-        /* === 3. Gráfico de Dona CSS === */
+        /* === 3. GrÃ¡fico de Dona CSS === */
         .donut-container { display: flex; justify-content: center; align-items: center; height: 100%; gap: 80px; }
         .donut-chart {
             width: 350px; height: 350px; border-radius: 50%;
@@ -96,7 +96,7 @@ X<!DOCTYPE html>
         .legend-sub { font-weight: normal; font-size: 18px; color: #7f8c8d; display: block; margin-top: 5px; }
         .color-box { width: 30px; height: 30px; border-radius: 6px; margin-right: 20px; flex-shrink: 0; }
 
-        /* === 4. Gráfico Barras Interactivas === */
+        /* === 4. GrÃ¡fico Barras Interactivas === */
         .bars-container { display: flex; justify-content: space-between; align-items: flex-end; height: 350px; border-bottom: 3px solid #ecf0f1; padding-bottom: 5px; margin-top: 40px;}
         .bar-col { width: 8%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; cursor: pointer; position: relative;}
         .bar { width: 100%; background: #3498db; border-radius: 5px 5px 0 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -108,20 +108,20 @@ X<!DOCTYPE html>
         .instruccion { text-align: center; color: #d35400; font-size: 20px; font-weight: bold; background: #fdf2e9; padding: 18px; border-radius: 8px; margin-bottom: 30px; border-left: 6px solid #e67e22;}
 
         /* ========================================================
-           RESPONSIVE DESIGN (Media Queries para Teléfonos Móviles) 
+           RESPONSIVE DESIGN (Media Queries para TelÃ©fonos MÃ³viles) 
            ======================================================== */
         @media (max-width: 768px) {
             body { padding: 10px; font-size: 16px; }
             .container { padding: 20px; }
             h1 { font-size: 28px; margin-bottom: 20px; }
             
-            /* Pestañas verticales en móvil */
+            /* PestaÃ±as verticales en mÃ³vil */
             .tabs { flex-direction: column; gap: 10px; border-bottom: none; }
             .tab-button { width: 100%; margin: 0; padding: 12px; font-size: 16px; border: 1px solid #ecf0f1; }
             
             .titulo-seccion { font-size: 22px; margin-bottom: 20px; }
             
-            /* Acumulado Anual Móvil */
+            /* Acumulado Anual MÃ³vil */
             .total-anual-container { padding: 30px 15px; margin-bottom: 20px; }
             .total-anual-container h2 { font-size: 18px; text-align: center; }
             .total-anual-container .monto-gigante { font-size: 45px; }
@@ -133,13 +133,13 @@ X<!DOCTYPE html>
             .card h3 { font-size: 14px; }
             .card p { font-size: 28px; }
             
-            /* Gráfica de Tendencia Móvil */
+            /* GrÃ¡fica de Tendencia MÃ³vil */
             .chart-box { height: auto; }
             .svg-container { height: 250px; padding-left: 45px; padding-right: 15px; }
             .axis-label, .etiqueta-100k { font-size: 14px; }
             .tooltip-punto { font-size: 14px; padding: 6px 10px; }
             
-            /* Gráfica de Dona Móvil */
+            /* GrÃ¡fica de Dona MÃ³vil */
             .donut-container { flex-direction: column; gap: 30px; height: auto; }
             .donut-chart { width: 220px; height: 220px; }
             .donut-hole { width: 120px; height: 120px; }
@@ -150,7 +150,7 @@ X<!DOCTYPE html>
             .legend-sub { font-size: 14px; }
             .color-box { width: 20px; height: 20px; }
             
-            /* Gráfica de Barras Móvil */
+            /* GrÃ¡fica de Barras MÃ³vil */
             .bars-container { height: 250px; }
             .bar-label { font-size: 11px; margin-top: 8px; }
             .bar-tooltip { font-size: 10px; margin-bottom: 5px; }
@@ -325,7 +325,7 @@ X<!DOCTYPE html>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // 1. Lógica para Pestañas
+        // 1. LÃ³gica para PestaÃ±as
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
 
@@ -340,7 +340,7 @@ X<!DOCTYPE html>
             });
         });
 
-        // 2. Lógica para el SVG Tooltip
+        // 2. LÃ³gica para el SVG Tooltip
         const puntos = document.querySelectorAll('.punto-grafica');
         const tooltip = document.getElementById('tooltip-svg');
         const contenedorSvg = document.getElementById('contenedor-svg');
@@ -403,7 +403,7 @@ X<!DOCTYPE html>
             return "$" + num.toLocaleString('en-US');
         }
 
-        // 4. Lógica Interactiva para Barras
+        // 4. LÃ³gica Interactiva para Barras
         const barras = document.querySelectorAll('.bar-col');
         
         barras.forEach(barra => {
