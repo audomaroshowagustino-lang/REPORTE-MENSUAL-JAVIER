@@ -1,4 +1,4 @@
-X<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -27,9 +27,9 @@ X<!DOCTYPE html>
         /* Pestañas */
         .tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px;}
         .tab-button { 
-            background: transparent; border: none; padding: 15px 30px; margin: 0 10px; 
+            background: transparent; border: none; padding: 15px 25px; margin: 5px; 
             cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.3s; 
-            font-size: 20px; 
+            font-size: 18px; 
             color: #7f8c8d;
         }
         .tab-button:hover { color: #3498db; background: #f0f8ff; }
@@ -107,6 +107,36 @@ X<!DOCTYPE html>
         
         .instruccion { text-align: center; color: #d35400; font-size: 20px; font-weight: bold; background: #fdf2e9; padding: 18px; border-radius: 8px; margin-bottom: 30px; border-left: 6px solid #e67e22;}
 
+        /* === Estilos Nativos para los Carruseles (Secciones 5 y 6) === */
+        .carousel-wrapper {
+            position: relative; width: 100%; max-width: 900px; margin: 0 auto; 
+            overflow: hidden; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            background: #111; /* Fondo oscuro para los videos/imagenes */
+        }
+        .carousel-track {
+            display: flex; transition: transform 0.4s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%; display: flex; justify-content: center; align-items: center;
+        }
+        .carousel-slide video, .carousel-slide img {
+            width: 100%; height: auto; max-height: 550px; object-fit: contain;
+        }
+        /* Ajuste de fondo para imágenes si no son oscuras */
+        .carousel-imagenes { background: #f4f7f6; border: 1px solid #ecf0f1; }
+        
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(44, 62, 80, 0.7); color: white; border: none;
+            width: 50px; height: 50px; cursor: pointer; font-size: 24px; border-radius: 50%;
+            z-index: 10; display: flex; justify-content: center; align-items: center;
+            transition: background 0.3s;
+        }
+        .carousel-btn:hover { background: rgba(231, 76, 60, 0.9); }
+        .prev-btn { left: 15px; }
+        .next-btn { right: 15px; }
+
+
         /* ========================================================
            RESPONSIVE DESIGN (Media Queries para Teléfonos Móviles) 
            ======================================================== */
@@ -155,6 +185,10 @@ X<!DOCTYPE html>
             .bar-label { font-size: 11px; margin-top: 8px; }
             .bar-tooltip { font-size: 10px; margin-bottom: 5px; }
             .instruccion { font-size: 14px; padding: 12px; }
+
+            /* Carruseles Móvil */
+            .carousel-btn { width: 35px; height: 35px; font-size: 16px; }
+            .carousel-slide video, .carousel-slide img { max-height: 300px; }
         }
     </style>
 </head>
@@ -163,11 +197,15 @@ X<!DOCTYPE html>
 <div class="container">
     <h1>Dashboard Ejecutivo de Ventas 2026</h1>
     
+    <!-- Pestañas actualizadas (7 secciones) -->
     <div class="tabs">
         <button class="tab-button active" data-target="anual">1. Volumen Acumulado Anual</button>
         <button class="tab-button" data-target="mensual">2. Tendencia Mensual</button>
         <button class="tab-button" data-target="mayo">3. Desglose Mayo</button>
         <button class="tab-button" data-target="top-mensual">4. Top Mensual</button>
+        <button class="tab-button" data-target="herramientas">5. Herramientas</button>
+        <button class="tab-button" data-target="comparativos">6. Comparativos</button>
+        <button class="tab-button" data-target="vdt">7. Comparativo VDT</button>
     </div>
 
     <!-- 1. Volumen Acumulado Anual -->
@@ -222,33 +260,25 @@ X<!DOCTYPE html>
                 
                 <path d="M 0,232.5 C 44.4,232.5 44.4,94.1 88.8,94.1 C 133.3,94.1 133.3,189.6 177.7,189.6 C 222.2,189.6 222.2,213.3 266.6,213.3 C 311.1,213.3 311.1,10.3 355.5,10.3 C 400,10.3 400,170.3 444.4,170.3 C 488.8,170.3 488.8,16.1 533.3,16.1 C 577.7,16.1 577.7,177.2 622.2,177.2 C 666.6,177.2 666.6,161 711.1,161 C 755.5,161 755.5,246.4 800,246.4" fill="none" stroke="#2980b9" stroke-width="4"/>
 
+                <!-- Puntos con data-attributes -->
                 <circle cx="0" cy="232.5" r="7" fill="#3498db" class="punto-grafica" data-val="$31,356" />
                 <text x="0" y="275" class="axis-label" text-anchor="middle">Ene</text>
-                
                 <circle cx="88.8" cy="94.1" r="7" fill="#3498db" class="punto-grafica" data-val="$280,545" />
                 <text x="88.8" y="275" class="axis-label" text-anchor="middle">Feb</text>
-                
                 <circle cx="177.7" cy="189.6" r="7" fill="#3498db" class="punto-grafica" data-val="$108,562" />
                 <text x="177.7" y="275" class="axis-label" text-anchor="middle">Mar</text>
-                
                 <circle cx="266.6" cy="213.3" r="7" fill="#3498db" class="punto-grafica" data-val="$65,894" />
                 <text x="266.6" y="275" class="axis-label" text-anchor="middle">Abr</text>
-                
                 <circle cx="355.5" cy="10.3" r="7" fill="#3498db" class="punto-grafica" data-val="$431,330" />
                 <text x="355.5" y="275" class="axis-label" text-anchor="middle">May</text>
-                
                 <circle cx="444.4" cy="170.3" r="7" fill="#3498db" class="punto-grafica" data-val="$143,330" />
                 <text x="444.4" y="275" class="axis-label" text-anchor="middle">Jun</text>
-                
                 <circle cx="533.3" cy="16.1" r="7" fill="#3498db" class="punto-grafica" data-val="$420,863" />
                 <text x="533.3" y="275" class="axis-label" text-anchor="middle">Jul</text>
-                
                 <circle cx="622.2" cy="177.2" r="7" fill="#3498db" class="punto-grafica" data-val="$130,957" />
                 <text x="622.2" y="275" class="axis-label" text-anchor="middle">Ago</text>
-                
                 <circle cx="711.1" cy="161.0" r="7" fill="#3498db" class="punto-grafica" data-val="$160,056" />
                 <text x="711.1" y="275" class="axis-label" text-anchor="middle">Sep</text>
-                
                 <circle cx="800" cy="246.4" r="7" fill="#3498db" class="punto-grafica" data-val="$6,394" />
                 <text x="800" y="275" class="axis-label" text-anchor="middle">Oct</text>
             </svg>
@@ -320,12 +350,98 @@ X<!DOCTYPE html>
             </div>
         </div>
     </div>
+
+    <!-- ==============================================
+         NUEVAS PESTAÑAS AGREGADAS (5, 6 y 7)
+         ============================================== -->
+    
+    <!-- 5. Herramientas (Carrusel de Videos) -->
+    <div id="herramientas" class="tab-content">
+        <div class="titulo-seccion">Herramientas Operativas</div>
+        <div class="carousel-wrapper">
+            <button class="carousel-btn prev-btn" data-carousel="track-videos" data-dir="-1">&#10094;</button>
+            <div class="carousel-track" id="track-videos" data-total="3" data-current="0">
+                <!-- Video 1 -->
+                <div class="carousel-slide">
+                    <video controls>
+                        <!-- INGRESA LA RUTA DE TU VIDEO 1 AQUI -->
+                        <source src="RUTA_AL_VIDEO_1.mp4" type="video/mp4">
+                        Tu navegador no soporta la etiqueta de video.
+                    </video>
+                </div>
+                <!-- Video 2 -->
+                <div class="carousel-slide">
+                    <video controls>
+                        <!-- INGRESA LA RUTA DE TU VIDEO 2 AQUI -->
+                        <source src="RUTA_AL_VIDEO_2.mp4" type="video/mp4">
+                        Tu navegador no soporta la etiqueta de video.
+                    </video>
+                </div>
+                <!-- Video 3 -->
+                <div class="carousel-slide">
+                    <video controls>
+                        <!-- INGRESA LA RUTA DE TU VIDEO 3 AQUI -->
+                        <source src="RUTA_AL_VIDEO_3.mp4" type="video/mp4">
+                        Tu navegador no soporta la etiqueta de video.
+                    </video>
+                </div>
+            </div>
+            <button class="carousel-btn next-btn" data-carousel="track-videos" data-dir="1">&#10095;</button>
+        </div>
+        <p style="text-align:center; color:#7f8c8d; margin-top:20px;">Desliza para ver más videos formativos.</p>
+    </div>
+
+    <!-- 6. Comparativos (Carrusel de Imágenes) -->
+    <div id="comparativos" class="tab-content">
+        <div class="titulo-seccion">Comparativos Visuales</div>
+        <!-- Se agrega la clase carousel-imagenes para un fondo más claro -->
+        <div class="carousel-wrapper carousel-imagenes">
+            <button class="carousel-btn prev-btn" data-carousel="track-imagenes" data-dir="-1">&#10094;</button>
+            <div class="carousel-track" id="track-imagenes" data-total="4" data-current="0">
+                <!-- Imagen 1 -->
+                <div class="carousel-slide">
+                    <!-- INGRESA LA RUTA DE TU IMAGEN 1 AQUI -->
+                    <img src="RUTA_A_IMAGEN_1.jpg" alt="Comparativo 1">
+                </div>
+                <!-- Imagen 2 -->
+                <div class="carousel-slide">
+                    <!-- INGRESA LA RUTA DE TU IMAGEN 2 AQUI -->
+                    <img src="RUTA_A_IMAGEN_2.jpg" alt="Comparativo 2">
+                </div>
+                <!-- Imagen 3 -->
+                <div class="carousel-slide">
+                    <!-- INGRESA LA RUTA DE TU IMAGEN 3 AQUI -->
+                    <img src="RUTA_A_IMAGEN_3.jpg" alt="Comparativo 3">
+                </div>
+                <!-- Imagen 4 -->
+                <div class="carousel-slide">
+                    <!-- INGRESA LA RUTA DE TU IMAGEN 4 AQUI -->
+                    <img src="RUTA_A_IMAGEN_4.jpg" alt="Comparativo 4">
+                </div>
+            </div>
+            <button class="carousel-btn next-btn" data-carousel="track-imagenes" data-dir="1">&#10095;</button>
+        </div>
+        <p style="text-align:center; color:#7f8c8d; margin-top:20px;">Navega por las galerías comparativas.</p>
+    </div>
+
+    <!-- 7. Comparativo VDT (En construcción) -->
+    <div id="vdt" class="tab-content">
+        <div class="titulo-seccion">Comparativo VDT</div>
+        <div style="text-align: center; padding: 100px 20px; color: #95a5a6; border: 2px dashed #bdc3c7; border-radius: 10px; background: #fdfdfd; margin-top: 30px;">
+            <svg style="width:50px; height:50px; fill:#bdc3c7; margin-bottom:15px;" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+            </svg>
+            <h3 style="margin:0; font-size: 22px;">Espacio Reservado</h3>
+            <p style="margin-top:10px; font-size:16px;">La funcionalidad para el Comparativo VDT será implementada aquí próximamente.</p>
+        </div>
+    </div>
+
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         
-        // 1. Lógica para Pestañas
+        // 1. Lógica para Pestañas (Se aplica automáticamente a las nuevas pestañas)
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
 
@@ -374,7 +490,7 @@ X<!DOCTYPE html>
         // 3. Bases de datos para Top Mensual
         const clientesPorMes = [
             ['ADSA', 'ING LUIS', 'NIEVES'],
-            ['BONATTI', 'ING HECTOR', 'ING JORGE H. '],
+            ['BONATTI', 'BONATTI SPA', 'ING HECTOR'],
             ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
             ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
             ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
@@ -387,14 +503,14 @@ X<!DOCTYPE html>
 
         const montosPorMes = [
             [15042, 5880, 4200],
-            [189721, 32198, 17665 ],
+            [157500, 32221, 32199],
             [60863, 19102, 8773],
             [27099, 9081, 8226],
             [272150, 60016, 34460],
             [52534, 33897, 15754],
-            [337772, 13218, 12225],
+            [337772, 13219, 12225],
             [38787, 38725, 13904],
-            [56337, 40339, 15968],
+            [56337, 29061, 15968],
             [6395, 0, 0]
         ];
 
@@ -429,6 +545,39 @@ X<!DOCTYPE html>
                 
                 document.getElementById('cliente3-nombre').innerHTML = '3. ' + clientesPorMes[indice][2];
                 document.getElementById('cliente3-monto').innerHTML = formatDinero(montosPorMes[indice][2]);
+            });
+        });
+
+        // ======================================================
+        // 5. LÓGICA PARA LOS CARRUSELES (VIDEOS E IMÁGENES)
+        // ======================================================
+        const carruselBtns = document.querySelectorAll('.carousel-btn');
+        
+        carruselBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const trackId = this.getAttribute('data-carousel');
+                const direction = parseInt(this.getAttribute('data-dir'));
+                const track = document.getElementById(trackId);
+                
+                const totalSlides = parseInt(track.getAttribute('data-total'));
+                let currentSlide = parseInt(track.getAttribute('data-current'));
+                
+                // Pausar cualquier video reproduciéndose en el carrusel actual
+                if(trackId === 'track-videos') {
+                    const videos = track.querySelectorAll('video');
+                    videos.forEach(v => v.pause());
+                }
+
+                // Calcular el nuevo índice (Loop)
+                currentSlide += direction;
+                if(currentSlide < 0) currentSlide = totalSlides - 1;
+                if(currentSlide >= totalSlides) currentSlide = 0;
+                
+                // Actualizar el estado
+                track.setAttribute('data-current', currentSlide);
+                
+                // Mover el contenedor visualmente (-100% por slide)
+                track.style.transform = translateX(-${currentSlide * 100}%);
             });
         });
 
