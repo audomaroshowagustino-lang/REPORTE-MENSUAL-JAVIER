@@ -27,9 +27,9 @@
         /* Pestañas */
         .tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px;}
         .tab-button { 
-            background: transparent; border: none; padding: 15px 25px; margin: 5px; 
+            background: transparent; border: none; padding: 15px 30px; margin: 0 10px; 
             cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.3s; 
-            font-size: 18px; 
+            font-size: 20px; 
             color: #7f8c8d;
         }
         .tab-button:hover { color: #3498db; background: #f0f8ff; }
@@ -107,15 +107,21 @@
         
         .instruccion { text-align: center; color: #d35400; font-size: 20px; font-weight: bold; background: #fdf2e9; padding: 18px; border-radius: 8px; margin-bottom: 30px; border-left: 6px solid #e67e22;}
 
-        /* === Estilos de Carruseles (Secciones 5 y 6) === */
+        /* === Estilos Nativos para los Carruseles (Secciones 5 y 6) === */
         .carousel-wrapper {
             position: relative; width: 100%; max-width: 900px; margin: 0 auto; 
             overflow: hidden; border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            background: #111;
+            background: #111; 
         }
-        .carousel-track { display: flex; transition: transform 0.4s ease-in-out; }
-        .carousel-slide { min-width: 100%; display: flex; justify-content: center; align-items: center; }
-        .carousel-slide video, .carousel-slide img { width: 100%; height: auto; max-height: 550px; object-fit: contain; }
+        .carousel-track {
+            display: flex; transition: transform 0.4s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%; display: flex; justify-content: center; align-items: center;
+        }
+        .carousel-slide video, .carousel-slide img {
+            width: 100%; height: auto; max-height: 550px; object-fit: contain;
+        }
         .carousel-imagenes { background: #f4f7f6; border: 1px solid #ecf0f1; }
         
         .carousel-btn {
@@ -136,21 +142,32 @@
             body { padding: 10px; font-size: 16px; }
             .container { padding: 20px; }
             h1 { font-size: 28px; margin-bottom: 20px; }
+            
+            /* Pestañas verticales en móvil */
             .tabs { flex-direction: column; gap: 10px; border-bottom: none; }
             .tab-button { width: 100%; margin: 0; padding: 12px; font-size: 16px; border: 1px solid #ecf0f1; }
+            
             .titulo-seccion { font-size: 22px; margin-bottom: 20px; }
+            
+            /* Acumulado Anual Móvil */
             .total-anual-container { padding: 30px 15px; margin-bottom: 20px; }
             .total-anual-container h2 { font-size: 18px; text-align: center; }
             .total-anual-container .monto-gigante { font-size: 45px; }
             .total-anual-container p { font-size: 14px; text-align: center; }
+            
+            /* Tarjetas Apiladas */
             .summary-cards { flex-direction: column; gap: 15px; }
             .card { padding: 20px; }
             .card h3 { font-size: 14px; }
             .card p { font-size: 28px; }
+            
+            /* Gráfica de Tendencia Móvil */
             .chart-box { height: auto; }
             .svg-container { height: 250px; padding-left: 45px; padding-right: 15px; }
             .axis-label, .etiqueta-100k { font-size: 14px; }
             .tooltip-punto { font-size: 14px; padding: 6px 10px; }
+            
+            /* Gráfica de Dona Móvil */
             .donut-container { flex-direction: column; gap: 30px; height: auto; }
             .donut-chart { width: 220px; height: 220px; }
             .donut-hole { width: 120px; height: 120px; }
@@ -160,10 +177,14 @@
             .legend-item { font-size: 16px; align-items: flex-start; }
             .legend-sub { font-size: 14px; }
             .color-box { width: 20px; height: 20px; }
+            
+            /* Gráfica de Barras Móvil */
             .bars-container { height: 250px; }
             .bar-label { font-size: 11px; margin-top: 8px; }
             .bar-tooltip { font-size: 10px; margin-bottom: 5px; }
             .instruccion { font-size: 14px; padding: 12px; }
+
+            /* Carruseles Móvil */
             .carousel-btn { width: 35px; height: 35px; font-size: 16px; }
             .carousel-slide video, .carousel-slide img { max-height: 300px; }
         }
@@ -174,7 +195,6 @@
 <div class="container">
     <h1>Dashboard Ejecutivo de Ventas 2026</h1>
     
-    <!-- Pestañas (7 secciones) -->
     <div class="tabs">
         <button class="tab-button active" data-target="anual">1. Volumen Acumulado Anual</button>
         <button class="tab-button" data-target="mensual">2. Tendencia Mensual</button>
@@ -219,38 +239,52 @@
             <svg viewBox="-40 0 860 290">
                 <text x="-15" y="32" class="axis-label" text-anchor="end">400k</text>
                 <line x1="0" y1="27.7" x2="800" y2="27.7" class="grid-line" />
+                
                 <text x="-15" y="88" class="axis-label" text-anchor="end">300k</text>
                 <line x1="0" y1="83.3" x2="800" y2="83.3" class="grid-line" />
+                
                 <text x="-15" y="143" class="axis-label" text-anchor="end">200k</text>
                 <line x1="0" y1="138.8" x2="800" y2="138.8" class="grid-line" />
+                
                 <text x="-15" y="198" class="etiqueta-100k" text-anchor="end">100k</text>
                 <line x1="0" y1="194.4" x2="800" y2="194.4" class="linea-100k" />
                 <text x="810" y="198" class="etiqueta-100k" text-anchor="start">Meta Base</text>
+
                 <text x="-15" y="254" class="axis-label" text-anchor="end">0</text>
                 <line x1="0" y1="250" x2="800" y2="250" stroke="#bdc3c7" stroke-width="2" />
                 
                 <path d="M 0,250 L 0,232.5 C 44.4,232.5 44.4,94.1 88.8,94.1 C 133.3,94.1 133.3,189.6 177.7,189.6 C 222.2,189.6 222.2,213.3 266.6,213.3 C 311.1,213.3 311.1,10.3 355.5,10.3 C 400,10.3 400,170.3 444.4,170.3 C 488.8,170.3 488.8,16.1 533.3,16.1 C 577.7,16.1 577.7,177.2 622.2,177.2 C 666.6,177.2 666.6,161 711.1,161 C 755.5,161 755.5,246.4 800,246.4 L 800,250 Z" fill="rgba(52, 152, 219, 0.15)"/>
+                
                 <path d="M 0,232.5 C 44.4,232.5 44.4,94.1 88.8,94.1 C 133.3,94.1 133.3,189.6 177.7,189.6 C 222.2,189.6 222.2,213.3 266.6,213.3 C 311.1,213.3 311.1,10.3 355.5,10.3 C 400,10.3 400,170.3 444.4,170.3 C 488.8,170.3 488.8,16.1 533.3,16.1 C 577.7,16.1 577.7,177.2 622.2,177.2 C 666.6,177.2 666.6,161 711.1,161 C 755.5,161 755.5,246.4 800,246.4" fill="none" stroke="#2980b9" stroke-width="4"/>
 
-                <!-- Puntos interactivos -->
+                <!-- Puntos con data-attributes -->
                 <circle cx="0" cy="232.5" r="7" fill="#3498db" class="punto-grafica" data-val="$31,356" />
                 <text x="0" y="275" class="axis-label" text-anchor="middle">Ene</text>
+                
                 <circle cx="88.8" cy="94.1" r="7" fill="#3498db" class="punto-grafica" data-val="$280,545" />
                 <text x="88.8" y="275" class="axis-label" text-anchor="middle">Feb</text>
+                
                 <circle cx="177.7" cy="189.6" r="7" fill="#3498db" class="punto-grafica" data-val="$108,562" />
                 <text x="177.7" y="275" class="axis-label" text-anchor="middle">Mar</text>
+                
                 <circle cx="266.6" cy="213.3" r="7" fill="#3498db" class="punto-grafica" data-val="$65,894" />
                 <text x="266.6" y="275" class="axis-label" text-anchor="middle">Abr</text>
+                
                 <circle cx="355.5" cy="10.3" r="7" fill="#3498db" class="punto-grafica" data-val="$431,330" />
                 <text x="355.5" y="275" class="axis-label" text-anchor="middle">May</text>
+                
                 <circle cx="444.4" cy="170.3" r="7" fill="#3498db" class="punto-grafica" data-val="$143,330" />
                 <text x="444.4" y="275" class="axis-label" text-anchor="middle">Jun</text>
+                
                 <circle cx="533.3" cy="16.1" r="7" fill="#3498db" class="punto-grafica" data-val="$420,863" />
                 <text x="533.3" y="275" class="axis-label" text-anchor="middle">Jul</text>
+                
                 <circle cx="622.2" cy="177.2" r="7" fill="#3498db" class="punto-grafica" data-val="$130,957" />
                 <text x="622.2" y="275" class="axis-label" text-anchor="middle">Ago</text>
+                
                 <circle cx="711.1" cy="161.0" r="7" fill="#3498db" class="punto-grafica" data-val="$160,056" />
                 <text x="711.1" y="275" class="axis-label" text-anchor="middle">Sep</text>
+                
                 <circle cx="800" cy="246.4" r="7" fill="#3498db" class="punto-grafica" data-val="$6,394" />
                 <text x="800" y="275" class="axis-label" text-anchor="middle">Oct</text>
             </svg>
@@ -330,19 +364,13 @@
             <button class="carousel-btn prev-btn" data-carousel="track-videos" data-dir="-1">&#10094;</button>
             <div class="carousel-track" id="track-videos" data-total="3" data-current="0">
                 <div class="carousel-slide">
-                    <video controls>
-                        <source src="RUTA_AL_VIDEO_1.mp4" type="video/mp4">
-                    </video>
+                    <video controls><source src="RUTA_AL_VIDEO_1.mp4" type="video/mp4"></video>
                 </div>
                 <div class="carousel-slide">
-                    <video controls>
-                        <source src="RUTA_AL_VIDEO_2.mp4" type="video/mp4">
-                    </video>
+                    <video controls><source src="RUTA_AL_VIDEO_2.mp4" type="video/mp4"></video>
                 </div>
                 <div class="carousel-slide">
-                    <video controls>
-                        <source src="RUTA_AL_VIDEO_3.mp4" type="video/mp4">
-                    </video>
+                    <video controls><source src="RUTA_AL_VIDEO_3.mp4" type="video/mp4"></video>
                 </div>
             </div>
             <button class="carousel-btn next-btn" data-carousel="track-videos" data-dir="1">&#10095;</button>
@@ -356,18 +384,10 @@
         <div class="carousel-wrapper carousel-imagenes">
             <button class="carousel-btn prev-btn" data-carousel="track-imagenes" data-dir="-1">&#10094;</button>
             <div class="carousel-track" id="track-imagenes" data-total="4" data-current="0">
-                <div class="carousel-slide">
-                    <img src="RUTA_A_IMAGEN_1.jpg" alt="Comparativo 1">
-                </div>
-                <div class="carousel-slide">
-                    <img src="RUTA_A_IMAGEN_2.jpg" alt="Comparativo 2">
-                </div>
-                <div class="carousel-slide">
-                    <img src="RUTA_A_IMAGEN_3.jpg" alt="Comparativo 3">
-                </div>
-                <div class="carousel-slide">
-                    <img src="RUTA_A_IMAGEN_4.jpg" alt="Comparativo 4">
-                </div>
+                <div class="carousel-slide"><img src="RUTA_A_IMAGEN_1.jpg" alt="Comparativo 1"></div>
+                <div class="carousel-slide"><img src="RUTA_A_IMAGEN_2.jpg" alt="Comparativo 2"></div>
+                <div class="carousel-slide"><img src="RUTA_A_IMAGEN_3.jpg" alt="Comparativo 3"></div>
+                <div class="carousel-slide"><img src="RUTA_A_IMAGEN_4.jpg" alt="Comparativo 4"></div>
             </div>
             <button class="carousel-btn next-btn" data-carousel="track-imagenes" data-dir="1">&#10095;</button>
         </div>
@@ -385,10 +405,10 @@
             <p style="margin-top:10px; font-size:16px;">La funcionalidad para el Comparativo VDT será implementada aquí próximamente.</p>
         </div>
     </div>
+
 </div>
 
 <script>
-    // Se restaura el envoltorio original que funcionó en la versión anterior
     document.addEventListener("DOMContentLoaded", function() {
         
         // 1. Lógica para Pestañas
@@ -401,11 +421,7 @@
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 
                 const targetId = this.getAttribute('data-target');
-                const targetElement = document.getElementById(targetId);
-                
-                if(targetElement) {
-                    targetElement.classList.add('active');
-                }
+                document.getElementById(targetId).classList.add('active');
                 this.classList.add('active');
             });
         });
@@ -415,35 +431,36 @@
         const tooltip = document.getElementById('tooltip-svg');
         const contenedorSvg = document.getElementById('contenedor-svg');
 
-        if(tooltip && contenedorSvg) {
-            puntos.forEach(punto => {
-                ['mousemove', 'touchstart'].forEach(evt => {
-                    punto.addEventListener(evt, function(e) {
-                        const valor = this.getAttribute('data-val');
-                        tooltip.style.opacity = '1';
-                        tooltip.innerHTML = valor;
-                        
-                        const rect = contenedorSvg.getBoundingClientRect();
-                        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                        
-                        tooltip.style.left = (clientX - rect.left) + 'px';
-                        tooltip.style.top = (clientY - rect.top - 15) + 'px';
-                    });
-                });
-                
-                ['mouseout', 'touchend'].forEach(evt => {
-                    punto.addEventListener(evt, function() {
-                        tooltip.style.opacity = '0';
-                    });
+        puntos.forEach(punto => {
+            ['mousemove', 'touchstart'].forEach(evt => {
+                punto.addEventListener(evt, function(e) {
+                    const valor = this.getAttribute('data-val');
+                    tooltip.style.opacity = '1';
+                    tooltip.innerHTML = valor;
+                    
+                    const rect = contenedorSvg.getBoundingClientRect();
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    
+                    const x = clientX - rect.left;
+                    const y = clientY - rect.top;
+                    
+                    tooltip.style.left = x + 'px';
+                    tooltip.style.top = (y - 15) + 'px';
                 });
             });
-        }
+            
+            ['mouseout', 'touchend'].forEach(evt => {
+                punto.addEventListener(evt, function() {
+                    tooltip.style.opacity = '0';
+                });
+            });
+        });
 
         // 3. Bases de datos para Top Mensual
         const clientesPorMes = [
             ['ADSA', 'ING LUIS', 'NIEVES'],
-            ['BONATTI', 'BONATTI SPA', 'ING HECTOR'],
+            ['BONATTI', 'ING HECTOR', 'ING JORGE H. '],
             ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
             ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
             ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
@@ -456,14 +473,14 @@
 
         const montosPorMes = [
             [15042, 5880, 4200],
-            [157500, 32221, 32199],
+            [189721, 32198, 17665 ],
             [60863, 19102, 8773],
             [27099, 9081, 8226],
             [272150, 60016, 34460],
             [52534, 33897, 15754],
-            [337772, 13219, 12225],
+            [337772, 13218, 12225],
             [38787, 38725, 13904],
-            [56337, 29061, 15968],
+            [56337, 40339, 15968],
             [6395, 0, 0]
         ];
 
@@ -489,18 +506,19 @@
                 const mes = this.getAttribute('data-mes');
 
                 document.getElementById('tituloClientes').innerHTML = 'Top 3 Clientes - ' + mes + ' 2026';
+                
                 document.getElementById('cliente1-nombre').innerHTML = '1. ' + clientesPorMes[indice][0];
                 document.getElementById('cliente1-monto').innerHTML = formatDinero(montosPorMes[indice][0]);
+                
                 document.getElementById('cliente2-nombre').innerHTML = '2. ' + clientesPorMes[indice][1];
                 document.getElementById('cliente2-monto').innerHTML = formatDinero(montosPorMes[indice][1]);
+                
                 document.getElementById('cliente3-nombre').innerHTML = '3. ' + clientesPorMes[indice][2];
                 document.getElementById('cliente3-monto').innerHTML = formatDinero(montosPorMes[indice][2]);
             });
         });
 
-        // ======================================================
-        // 5. LÓGICA PARA LOS CARRUSELES (VIDEOS E IMÁGENES)
-        // ======================================================
+        // 5. Lógica para los Carruseles (Videos e Imágenes)
         const carruselBtns = document.querySelectorAll('.carousel-btn');
         
         carruselBtns.forEach(btn => {
@@ -509,24 +527,22 @@
                 const direction = parseInt(this.getAttribute('data-dir'));
                 const track = document.getElementById(trackId);
                 
-                if(!track) return; // Validación de seguridad
+                if(!track) return;
 
                 const totalSlides = parseInt(track.getAttribute('data-total'));
                 let currentSlide = parseInt(track.getAttribute('data-current'));
                 
-                // Pausar videos al cambiar
                 if(trackId === 'track-videos') {
                     const videos = track.querySelectorAll('video');
                     videos.forEach(v => v.pause());
                 }
 
-                // Calcular el índice (Looping infinito)
                 currentSlide += direction;
                 if(currentSlide < 0) currentSlide = totalSlides - 1;
                 if(currentSlide >= totalSlides) currentSlide = 0;
                 
                 track.setAttribute('data-current', currentSlide);
-                track.style.transform = translateX(-${currentSlide * 100}%);
+                track.style.transform = translateX(-${currentSlide * 00}%);
             });
         });
 
