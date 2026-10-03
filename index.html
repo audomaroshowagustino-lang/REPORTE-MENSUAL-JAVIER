@@ -1,4 +1,29 @@
-<!DOCTYPE html>
+[11:54 a. m., 3/10/2026] Javier Gutierrez: <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Ejecutivo de Ventas 2026</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 20px; 
+            font-size: 18px;
+        }
+        .container { 
+            max-width: 1300px; 
+            margin: auto; 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+            box-sizing: border-box;
+        }
+        h1 { text-align: center; color…
+[12:02 p. m., 3/10/2026] Javier Gutierrez: <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -257,7 +282,6 @@
                 
                 <path d="M 0,232.5 C 44.4,232.5 44.4,94.1 88.8,94.1 C 133.3,94.1 133.3,189.6 177.7,189.6 C 222.2,189.6 222.2,213.3 266.6,213.3 C 311.1,213.3 311.1,10.3 355.5,10.3 C 400,10.3 400,170.3 444.4,170.3 C 488.8,170.3 488.8,16.1 533.3,16.1 C 577.7,16.1 577.7,177.2 622.2,177.2 C 666.6,177.2 666.6,161 711.1,161 C 755.5,161 755.5,246.4 800,246.4" fill="none" stroke="#2980b9" stroke-width="4"/>
 
-                <!-- Puntos con data-attributes -->
                 <circle cx="0" cy="232.5" r="7" fill="#3498db" class="punto-grafica" data-val="$31,356" />
                 <text x="0" y="275" class="axis-label" text-anchor="middle">Ene</text>
                 
@@ -408,29 +432,35 @@
 
 </div>
 
+<!-- EL SCRIPT SE EJECUTA DE FORMA DIRECTA Y AISLADA -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        
-        // 1. Lógica para Pestañas
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
+(function() {
+    
+    // 1. Lógica para Pestañas
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-        tabButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                tabContents.forEach(content => content.classList.remove('active'));
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                
-                const targetId = this.getAttribute('data-target');
-                document.getElementById(targetId).classList.add('active');
-                this.classList.add('active');
-            });
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            tabContents.forEach(content => content.classList.remove('active'));
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            const targetId = this.getAttribute('data-target');
+            const targetElement = document.getElementById(targetId);
+            
+            if(targetElement) {
+                targetElement.classList.add('active');
+            }
+            this.classList.add('active');
         });
+    });
 
-        // 2. Lógica para el SVG Tooltip
-        const puntos = document.querySelectorAll('.punto-grafica');
-        const tooltip = document.getElementById('tooltip-svg');
-        const contenedorSvg = document.getElementById('contenedor-svg');
+    // 2. Lógica para el SVG Tooltip
+    const puntos = document.querySelectorAll('.punto-grafica');
+    const tooltip = document.getElementById('tooltip-svg');
+    const contenedorSvg = document.getElementById('contenedor-svg');
 
+    if(tooltip && contenedorSvg) {
         puntos.forEach(punto => {
             ['mousemove', 'touchstart'].forEach(evt => {
                 punto.addEventListener(evt, function(e) {
@@ -442,11 +472,8 @@
                     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
                     
-                    const x = clientX - rect.left;
-                    const y = clientY - rect.top;
-                    
-                    tooltip.style.left = x + 'px';
-                    tooltip.style.top = (y - 15) + 'px';
+                    tooltip.style.left = (clientX - rect.left) + 'px';
+                    tooltip.style.top = (clientY - rect.top - 15) + 'px';
                 });
             });
             
@@ -456,97 +483,109 @@
                 });
             });
         });
+    }
 
-        // 3. Bases de datos para Top Mensual
-        const clientesPorMes = [
-            ['ADSA', 'ING LUIS', 'NIEVES'],
-            ['BONATTI', 'ING HECTOR', 'ING JORGE H. '],
-            ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
-            ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
-            ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
-            ['JADE URBANA', 'GRUPO PYRGOS', 'ESCOPICO'],
-            ['BONATTI', 'ING JAIME NIGMO', 'ADSA'],
-            ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ENALTO'],
-            ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ESCOPICO'],
-            ['ESCOPICO', 'Sin Registro', 'Sin Registro']
-        ];
+    // 3. Bases de datos para Top Mensual
+    const clientesPorMes = [
+        ['ADSA', 'ING LUIS', 'NIEVES'],
+        ['BONATTI', 'ING HECTOR', 'ING JORGE H. '],
+        ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
+        ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
+        ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
+        ['JADE URBANA', 'GRUPO PYRGOS', 'ESCOPICO'],
+        ['BONATTI', 'ING JAIME NIGMO', 'ADSA'],
+        ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ENALTO'],
+        ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ESCOPICO'],
+        ['ESCOPICO', 'Sin Registro', 'Sin Registro']
+    ];
 
-        const montosPorMes = [
-            [15042, 5880, 4200],
-            [189721, 32198, 17665 ],
-            [60863, 19102, 8773],
-            [27099, 9081, 8226],
-            [272150, 60016, 34460],
-            [52534, 33897, 15754],
-            [337772, 13218, 12225],
-            [38787, 38725, 13904],
-            [56337, 40339, 15968],
-            [6395, 0, 0]
-        ];
+    const montosPorMes = [
+        [15042, 5880, 4200],
+        [189721, 32198, 17665],
+        [60863, 19102, 8773],
+        [27099, 9081, 8226],
+        [272150, 60016, 34460],
+        [52534, 33897, 15754],
+        [337772, 13218, 12225],
+        [38787, 38725, 13904],
+        [56337, 40339, 15968],
+        [6395, 0, 0]
+    ];
 
-        function formatDinero(num) {
-            if(num === 0 || num === "-") return "$0";
-            return "$" + num.toLocaleString('en-US');
-        }
+    function formatDinero(num) {
+        if(num === 0 || num === "-") return "$0";
+        return "$" + num.toLocaleString('en-US');
+    }
 
-        // 4. Lógica Interactiva para Barras
-        const barras = document.querySelectorAll('.bar-col');
-        
-        barras.forEach(barra => {
-            barra.addEventListener('click', function() {
-                barras.forEach(b => {
-                    b.classList.remove('selected');
-                    b.querySelector('.bar').style.background = '#3498db';
-                });
-                
-                this.classList.add('selected');
-                this.querySelector('.bar').style.background = '#e74c3c';
-
-                const indice = parseInt(this.getAttribute('data-index'));
-                const mes = this.getAttribute('data-mes');
-
-                document.getElementById('tituloClientes').innerHTML = 'Top 3 Clientes - ' + mes + ' 2026';
-                
-                document.getElementById('cliente1-nombre').innerHTML = '1. ' + clientesPorMes[indice][0];
-                document.getElementById('cliente1-monto').innerHTML = formatDinero(montosPorMes[indice][0]);
-                
-                document.getElementById('cliente2-nombre').innerHTML = '2. ' + clientesPorMes[indice][1];
-                document.getElementById('cliente2-monto').innerHTML = formatDinero(montosPorMes[indice][1]);
-                
-                document.getElementById('cliente3-nombre').innerHTML = '3. ' + clientesPorMes[indice][2];
-                document.getElementById('cliente3-monto').innerHTML = formatDinero(montosPorMes[indice][2]);
+    // 4. Lógica Interactiva para Barras
+    const barras = document.querySelectorAll('.bar-col');
+    
+    barras.forEach(barra => {
+        barra.addEventListener('click', function() {
+            barras.forEach(b => {
+                b.classList.remove('selected');
+                const interiorBarra = b.querySelector('.bar');
+                if(interiorBarra) interiorBarra.style.background = '#3498db';
             });
+            
+            this.classList.add('selected');
+            const barraSeleccionada = this.querySelector('.bar');
+            if(barraSeleccionada) barraSeleccionada.style.background = '#e74c3c';
+
+            const indice = parseInt(this.getAttribute('data-index'));
+            const mes = this.getAttribute('data-mes');
+
+            const elemTitulo = document.getElementById('tituloClientes');
+            if(elemTitulo) elemTitulo.innerHTML = 'Top 3 Clientes - ' + mes + ' 2026';
+            
+            const elemC1n = document.getElementById('cliente1-nombre');
+            const elemC1m = document.getElementById('cliente1-monto');
+            if(elemC1n) elemC1n.innerHTML = '1. ' + clientesPorMes[indice][0];
+            if(elemC1m) elemC1m.innerHTML = formatDinero(montosPorMes[indice][0]);
+            
+            const elemC2n = document.getElementById('cliente2-nombre');
+            const elemC2m = document.getElementById('cliente2-monto');
+            if(elemC2n) elemC2n.innerHTML = '2. ' + clientesPorMes[indice][1];
+            if(elemC2m) elemC2m.innerHTML = formatDinero(montosPorMes[indice][1]);
+            
+            const elemC3n = document.getElementById('cliente3-nombre');
+            const elemC3m = document.getElementById('cliente3-monto');
+            if(elemC3n) elemC3n.innerHTML = '3. ' + clientesPorMes[indice][2];
+            if(elemC3m) elemC3m.innerHTML = formatDinero(montosPorMes[indice][2]);
         });
-
-        // 5. Lógica para los Carruseles (Videos e Imágenes)
-        const carruselBtns = document.querySelectorAll('.carousel-btn');
-        
-        carruselBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const trackId = this.getAttribute('data-carousel');
-                const direction = parseInt(this.getAttribute('data-dir'));
-                const track = document.getElementById(trackId);
-                
-                if(!track) return;
-
-                const totalSlides = parseInt(track.getAttribute('data-total'));
-                let currentSlide = parseInt(track.getAttribute('data-current'));
-                
-                if(trackId === 'track-videos') {
-                    const videos = track.querySelectorAll('video');
-                    videos.forEach(v => v.pause());
-                }
-
-                currentSlide += direction;
-                if(currentSlide < 0) currentSlide = totalSlides - 1;
-                if(currentSlide >= totalSlides) currentSlide = 0;
-                
-                track.setAttribute('data-current', currentSlide);
-                track.style.transform = translateX(-${currentSlide * 00}%);
-            });
-        });
-
     });
+
+    // 5. Lógica para los Carruseles (Videos e Imágenes)
+    const carruselBtns = document.querySelectorAll('.carousel-btn');
+    
+    carruselBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const trackId = this.getAttribute('data-carousel');
+            const direction = parseInt(this.getAttribute('data-dir'));
+            const track = document.getElementById(trackId);
+            
+            if(!track) return;
+
+            const totalSlides = parseInt(track.getAttribute('data-total'));
+            let currentSlide = parseInt(track.getAttribute('data-current'));
+            
+            if(trackId === 'track-videos') {
+                const videos = track.querySelectorAll('video');
+                videos.forEach(v => {
+                    if(typeof v.pause === 'function') v.pause();
+                });
+            }
+
+            currentSlide += direction;
+            if(currentSlide < 0) currentSlide = totalSlides - 1;
+            if(currentSlide >= totalSlides) currentSlide = 0;
+            
+            track.setAttribute('data-current', currentSlide);
+            track.style.transform = translateX(-${currentSlide * 100}%);
+        });
+    });
+
+})();
 </script>
 
 </body>
