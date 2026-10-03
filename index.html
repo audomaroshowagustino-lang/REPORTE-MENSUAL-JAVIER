@@ -1,29 +1,4 @@
-!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Ejecutivo de Ventas 2026</title>
-    <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f4f7f6; 
-            color: #333; 
-            margin: 0; 
-            padding: 20px; 
-            font-size: 18px;
-        }
-        .container { 
-            max-width: 1300px; 
-            margin: auto; 
-            background: #fff; 
-            padding: 40px; 
-            border-radius: 12px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
-            box-sizing: border-box;
-        }
-        h1 { text-align: center; color…
-[12:02 p. m., 3/10/2026] Javier Gutierrez: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -52,9 +27,9 @@
         /* Pestañas */
         .tabs { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px;}
         .tab-button { 
-            background: transparent; border: none; padding: 15px 30px; margin: 0 10px; 
+            background: transparent; border: none; padding: 15px 25px; margin: 5px; 
             cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.3s; 
-            font-size: 20px; 
+            font-size: 18px; 
             color: #7f8c8d;
         }
         .tab-button:hover { color: #3498db; background: #f0f8ff; }
@@ -167,32 +142,21 @@
             body { padding: 10px; font-size: 16px; }
             .container { padding: 20px; }
             h1 { font-size: 28px; margin-bottom: 20px; }
-            
-            /* Pestañas verticales en móvil */
             .tabs { flex-direction: column; gap: 10px; border-bottom: none; }
             .tab-button { width: 100%; margin: 0; padding: 12px; font-size: 16px; border: 1px solid #ecf0f1; }
-            
             .titulo-seccion { font-size: 22px; margin-bottom: 20px; }
-            
-            /* Acumulado Anual Móvil */
             .total-anual-container { padding: 30px 15px; margin-bottom: 20px; }
             .total-anual-container h2 { font-size: 18px; text-align: center; }
             .total-anual-container .monto-gigante { font-size: 45px; }
             .total-anual-container p { font-size: 14px; text-align: center; }
-            
-            /* Tarjetas Apiladas */
             .summary-cards { flex-direction: column; gap: 15px; }
             .card { padding: 20px; }
             .card h3 { font-size: 14px; }
             .card p { font-size: 28px; }
-            
-            /* Gráfica de Tendencia Móvil */
             .chart-box { height: auto; }
             .svg-container { height: 250px; padding-left: 45px; padding-right: 15px; }
             .axis-label, .etiqueta-100k { font-size: 14px; }
             .tooltip-punto { font-size: 14px; padding: 6px 10px; }
-            
-            /* Gráfica de Dona Móvil */
             .donut-container { flex-direction: column; gap: 30px; height: auto; }
             .donut-chart { width: 220px; height: 220px; }
             .donut-hole { width: 120px; height: 120px; }
@@ -202,14 +166,10 @@
             .legend-item { font-size: 16px; align-items: flex-start; }
             .legend-sub { font-size: 14px; }
             .color-box { width: 20px; height: 20px; }
-            
-            /* Gráfica de Barras Móvil */
             .bars-container { height: 250px; }
             .bar-label { font-size: 11px; margin-top: 8px; }
             .bar-tooltip { font-size: 10px; margin-bottom: 5px; }
             .instruccion { font-size: 14px; padding: 12px; }
-
-            /* Carruseles Móvil */
             .carousel-btn { width: 35px; height: 35px; font-size: 16px; }
             .carousel-slide video, .carousel-slide img { max-height: 300px; }
         }
@@ -432,160 +392,158 @@
 
 </div>
 
-<!-- EL SCRIPT SE EJECUTA DE FORMA DIRECTA Y AISLADA -->
 <script>
-(function() {
-    
-    // 1. Lógica para Pestañas
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
+    // Ejecución robusta garantizada
+    (function() {
+        // 1. Lógica para Pestañas (Totalmente optimizada para 7 pestañas)
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
 
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            tabContents.forEach(content => content.classList.remove('active'));
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            
-            const targetId = this.getAttribute('data-target');
-            const targetElement = document.getElementById(targetId);
-            
-            if(targetElement) {
-                targetElement.classList.add('active');
-            }
-            this.classList.add('active');
+        tabButtons.forEach(button => {
+            button.onclick = function() {
+                tabContents.forEach(content => content.classList.remove('active'));
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                
+                if(targetElement) {
+                    targetElement.classList.add('active');
+                }
+                this.classList.add('active');
+            };
         });
-    });
 
-    // 2. Lógica para el SVG Tooltip
-    const puntos = document.querySelectorAll('.punto-grafica');
-    const tooltip = document.getElementById('tooltip-svg');
-    const contenedorSvg = document.getElementById('contenedor-svg');
+        // 2. Lógica para el SVG Tooltip
+        const puntos = document.querySelectorAll('.punto-grafica');
+        const tooltip = document.getElementById('tooltip-svg');
+        const contenedorSvg = document.getElementById('contenedor-svg');
 
-    if(tooltip && contenedorSvg) {
-        puntos.forEach(punto => {
-            ['mousemove', 'touchstart'].forEach(evt => {
-                punto.addEventListener(evt, function(e) {
-                    const valor = this.getAttribute('data-val');
-                    tooltip.style.opacity = '1';
-                    tooltip.innerHTML = valor;
-                    
-                    const rect = contenedorSvg.getBoundingClientRect();
-                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                    
-                    tooltip.style.left = (clientX - rect.left) + 'px';
-                    tooltip.style.top = (clientY - rect.top - 15) + 'px';
+        if(tooltip && contenedorSvg) {
+            puntos.forEach(punto => {
+                ['mousemove', 'touchstart'].forEach(evt => {
+                    punto.addEventListener(evt, function(e) {
+                        const valor = this.getAttribute('data-val');
+                        tooltip.style.opacity = '1';
+                        tooltip.innerHTML = valor;
+                        
+                        const rect = contenedorSvg.getBoundingClientRect();
+                        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                        
+                        tooltip.style.left = (clientX - rect.left) + 'px';
+                        tooltip.style.top = (clientY - rect.top - 15) + 'px';
+                    });
+                });
+                
+                ['mouseout', 'touchend'].forEach(evt => {
+                    punto.addEventListener(evt, function() {
+                        tooltip.style.opacity = '0';
+                    });
                 });
             });
-            
-            ['mouseout', 'touchend'].forEach(evt => {
-                punto.addEventListener(evt, function() {
-                    tooltip.style.opacity = '0';
+        }
+
+        // 3. Bases de datos para Top Mensual
+        const clientesPorMes = [
+            ['ADSA', 'ING LUIS', 'NIEVES'],
+            ['BONATTI', 'ING HECTOR', 'ING JORGE H. '],
+            ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
+            ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
+            ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
+            ['JADE URBANA', 'GRUPO PYRGOS', 'ESCOPICO'],
+            ['BONATTI', 'ING JAIME NIGMO', 'ADSA'],
+            ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ENALTO'],
+            ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ESCOPICO'],
+            ['ESCOPICO', 'Sin Registro', 'Sin Registro']
+        ];
+
+        const montosPorMes = [
+            [15042, 5880, 4200],
+            [189721, 32198, 17665],
+            [60863, 19102, 8773],
+            [27099, 9081, 8226],
+            [272150, 60016, 34460],
+            [52534, 33897, 15754],
+            [337772, 13218, 12225],
+            [38787, 38725, 13904],
+            [56337, 40339, 15968],
+            [6395, 0, 0]
+        ];
+
+        function formatDinero(num) {
+            if(num === 0 || num === "-") return "$0";
+            return "$" + num.toLocaleString('en-US');
+        }
+
+        // 4. Lógica Interactiva para Barras
+        const barras = document.querySelectorAll('.bar-col');
+        
+        barras.forEach(barra => {
+            barra.onclick = function() {
+                barras.forEach(b => {
+                    b.classList.remove('selected');
+                    const interiorBarra = b.querySelector('.bar');
+                    if(interiorBarra) interiorBarra.style.background = '#3498db';
                 });
-            });
+                
+                this.classList.add('selected');
+                const barraSeleccionada = this.querySelector('.bar');
+                if(barraSeleccionada) barraSeleccionada.style.background = '#e74c3c';
+
+                const indice = parseInt(this.getAttribute('data-index'));
+                const mes = this.getAttribute('data-mes');
+
+                const elemTitulo = document.getElementById('tituloClientes');
+                if(elemTitulo) elemTitulo.innerHTML = 'Top 3 Clientes - ' + mes + ' 2026';
+                
+                const elemC1n = document.getElementById('cliente1-nombre');
+                const elemC1m = document.getElementById('cliente1-monto');
+                if(elemC1n) elemC1n.innerHTML = '1. ' + clientesPorMes[indice][0];
+                if(elemC1m) elemC1m.innerHTML = formatDinero(montosPorMes[indice][0]);
+                
+                const elemC2n = document.getElementById('cliente2-nombre');
+                const elemC2m = document.getElementById('cliente2-monto');
+                if(elemC2n) elemC2n.innerHTML = '2. ' + clientesPorMes[indice][1];
+                if(elemC2m) elemC2m.innerHTML = formatDinero(montosPorMes[indice][1]);
+                
+                const elemC3n = document.getElementById('cliente3-nombre');
+                const elemC3m = document.getElementById('cliente3-monto');
+                if(elemC3n) elemC3n.innerHTML = '3. ' + clientesPorMes[indice][2];
+                if(elemC3m) elemC3m.innerHTML = formatDinero(montosPorMes[indice][2]);
+            };
         });
-    }
 
-    // 3. Bases de datos para Top Mensual
-    const clientesPorMes = [
-        ['ADSA', 'ING LUIS', 'NIEVES'],
-        ['BONATTI', 'ING HECTOR', 'ING JORGE H. '],
-        ['CORROSION MASTER', 'KERMITY NOVELO', 'ADSA'],
-        ['CORROSION MASTER', 'GRUPO PYRGOS', 'PASEOS COUNTRY'],
-        ['KEK&Eacute;N', 'PLANEACION, CONST...', 'SIT'],
-        ['JADE URBANA', 'GRUPO PYRGOS', 'ESCOPICO'],
-        ['BONATTI', 'ING JAIME NIGMO', 'ADSA'],
-        ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ENALTO'],
-        ['DESARROLLOS PETRA', 'GRUPO PYRGOS', 'ESCOPICO'],
-        ['ESCOPICO', 'Sin Registro', 'Sin Registro']
-    ];
+        // 5. Lógica para los Carruseles (Videos e Imágenes)
+        const carruselBtns = document.querySelectorAll('.carousel-btn');
+        
+        carruselBtns.forEach(btn => {
+            btn.onclick = function() {
+                const trackId = this.getAttribute('data-carousel');
+                const direction = parseInt(this.getAttribute('data-dir'));
+                const track = document.getElementById(trackId);
+                
+                if(!track) return;
 
-    const montosPorMes = [
-        [15042, 5880, 4200],
-        [189721, 32198, 17665],
-        [60863, 19102, 8773],
-        [27099, 9081, 8226],
-        [272150, 60016, 34460],
-        [52534, 33897, 15754],
-        [337772, 13218, 12225],
-        [38787, 38725, 13904],
-        [56337, 40339, 15968],
-        [6395, 0, 0]
-    ];
+                const totalSlides = parseInt(track.getAttribute('data-total'));
+                let currentSlide = parseInt(track.getAttribute('data-current'));
+                
+                if(trackId === 'track-videos') {
+                    const videos = track.querySelectorAll('video');
+                    videos.forEach(v => {
+                        if(typeof v.pause === 'function') v.pause();
+                    });
+                }
 
-    function formatDinero(num) {
-        if(num === 0 || num === "-") return "$0";
-        return "$" + num.toLocaleString('en-US');
-    }
-
-    // 4. Lógica Interactiva para Barras
-    const barras = document.querySelectorAll('.bar-col');
-    
-    barras.forEach(barra => {
-        barra.addEventListener('click', function() {
-            barras.forEach(b => {
-                b.classList.remove('selected');
-                const interiorBarra = b.querySelector('.bar');
-                if(interiorBarra) interiorBarra.style.background = '#3498db';
-            });
-            
-            this.classList.add('selected');
-            const barraSeleccionada = this.querySelector('.bar');
-            if(barraSeleccionada) barraSeleccionada.style.background = '#e74c3c';
-
-            const indice = parseInt(this.getAttribute('data-index'));
-            const mes = this.getAttribute('data-mes');
-
-            const elemTitulo = document.getElementById('tituloClientes');
-            if(elemTitulo) elemTitulo.innerHTML = 'Top 3 Clientes - ' + mes + ' 2026';
-            
-            const elemC1n = document.getElementById('cliente1-nombre');
-            const elemC1m = document.getElementById('cliente1-monto');
-            if(elemC1n) elemC1n.innerHTML = '1. ' + clientesPorMes[indice][0];
-            if(elemC1m) elemC1m.innerHTML = formatDinero(montosPorMes[indice][0]);
-            
-            const elemC2n = document.getElementById('cliente2-nombre');
-            const elemC2m = document.getElementById('cliente2-monto');
-            if(elemC2n) elemC2n.innerHTML = '2. ' + clientesPorMes[indice][1];
-            if(elemC2m) elemC2m.innerHTML = formatDinero(montosPorMes[indice][1]);
-            
-            const elemC3n = document.getElementById('cliente3-nombre');
-            const elemC3m = document.getElementById('cliente3-monto');
-            if(elemC3n) elemC3n.innerHTML = '3. ' + clientesPorMes[indice][2];
-            if(elemC3m) elemC3m.innerHTML = formatDinero(montosPorMes[indice][2]);
+                currentSlide += direction;
+                if(currentSlide < 0) currentSlide = totalSlides - 1;
+                if(currentSlide >= totalSlides) currentSlide = 0;
+                
+                track.setAttribute('data-current', currentSlide);
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            };
         });
-    });
-
-    // 5. Lógica para los Carruseles (Videos e Imágenes)
-    const carruselBtns = document.querySelectorAll('.carousel-btn');
-    
-    carruselBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const trackId = this.getAttribute('data-carousel');
-            const direction = parseInt(this.getAttribute('data-dir'));
-            const track = document.getElementById(trackId);
-            
-            if(!track) return;
-
-            const totalSlides = parseInt(track.getAttribute('data-total'));
-            let currentSlide = parseInt(track.getAttribute('data-current'));
-            
-            if(trackId === 'track-videos') {
-                const videos = track.querySelectorAll('video');
-                videos.forEach(v => {
-                    if(typeof v.pause === 'function') v.pause();
-                });
-            }
-
-            currentSlide += direction;
-            if(currentSlide < 0) currentSlide = totalSlides - 1;
-            if(currentSlide >= totalSlides) currentSlide = 0;
-            
-            track.setAttribute('data-current', currentSlide);
-            track.style.transform = translateX(-${currentSlide * 100}%);
-        });
-    });
-
-})();
+    })();
 </script>
 
 </body>
