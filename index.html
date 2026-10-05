@@ -74,7 +74,7 @@
         /* Hover de puntos en la gráfica */
         .punto-grafica { cursor: pointer; transition: 0.2s; }
         .punto-grafica:hover { r: 10; fill: #e74c3c; }
-        .nodo-vendedor { cursor: pointer; }
+        .nodo-vendedor { cursor: pointer; transition: transform 0.3s ease-out; }
         .tooltip-punto { 
             position: absolute; background: rgba(44, 62, 80, 0.95); color: white; padding: 10px 15px; 
             border-radius: 6px; font-size: 18px; font-weight: bold; pointer-events: none; opacity: 0; transition: 0.2s;
@@ -155,9 +155,16 @@
             .card h3 { font-size: 14px; }
             .card p { font-size: 28px; }
             .chart-box { height: auto; }
-            .svg-container { height: 250px; padding-left: 45px; padding-right: 15px; }
-            .axis-label, .etiqueta-100k { font-size: 14px; }
+            
+            /* Ajustes Responsive específicos para Pestaña 7 */
+            .svg-container { height: 320px; padding-left: 45px; padding-right: 15px; }
+            #vdt > div:nth-child(2) { flex-direction: column; gap: 10px; padding: 10px; }
+            #vdt > div:nth-child(2) button { width: 100%; }
+            #vdt > div:nth-last-child(1) { flex-direction: column; gap: 10px; align-items: center; }
+
+            .axis-label, .etiqueta-100k { font-size: 12px; }
             .tooltip-punto { font-size: 14px; padding: 6px 10px; }
+            
             .donut-container { flex-direction: column; gap: 30px; height: auto; }
             .donut-chart { width: 220px; height: 220px; }
             .donut-hole { width: 120px; height: 120px; }
@@ -396,11 +403,11 @@
         </div>
 
         <!-- Contenedor Gráfica SVG Cronología Viva -->
-        <div class="svg-container" id="contenedor-cronologia" style="height: 520px;">
-            <div id="tooltip-cronologia" class="tooltip-punto"></div>
+        <div class="svg-container" id="contenedor-cronologia" style="height: 520px; position: relative;">
+            <div id="tooltip-vdt" class="tooltip-punto"></div>
             
             <svg viewBox="-85 0 945 350" id="svgCronologia">
-                <!-- Escala personalizada: 700k, 900k, 1.1M, 1.3M, 1.5M y pasos de 25k desde 0 hasta 500k -->
+                <!-- Escala personalizada limpia -->
                 <text x="-30" y="16" class="axis-label" text-anchor="end">1.5M</text>
                 <line x1="0" y1="12" x2="840" y2="12" class="grid-line" />
 
@@ -416,7 +423,7 @@
                 <text x="-30" y="96" class="axis-label" text-anchor="end">700k</text>
                 <line x1="0" y1="92" x2="840" y2="92" class="grid-line" />
 
-                <text x="-30" y="121" class="axis-label" text-anchor="end" fill="#e74c3c" font-weight="bold">500k</text>
+                <text x="-30" y="121" class="axis-label" text-anchor="end" fill="#e74c3c" font-weight:bold">500k</text>
                 <line x1="0" y1="117" x2="840" y2="117" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,4" />
 
                 <text x="-30" y="136" class="axis-label" text-anchor="end">475k</text>
@@ -480,9 +487,11 @@
                 <line x1="0" y1="417" x2="840" y2="417" stroke="#bdc3c7" stroke-width="2" />
 
                 <!-- Capa para las líneas curvas de tendencia -->
-                <g id="lineasCronologia"></g>
+                <path id="pathCarlos" d="" fill="none" stroke="#9b59b6" stroke-width="3" />
+                <path id="pathJavier" d="" fill="none" stroke="#f1c40f" stroke-width="3" />
+                <path id="pathAaron" d="" fill="none" stroke="#e74c3c" stroke-width="3" />
 
-                <!-- Nodos y Avatares Interactivos -->
+                <!-- Contenedor estático de Nodos -->
                 <g id="nodosCronologia"></g>
 
                 <!-- Etiquetas Eje X (Meses de referencia) -->
@@ -540,7 +549,7 @@
             };
         });
 
-        // 2. Lógica para el SVG Tooltip
+        // 2. Lógica para el SVG Tooltip de la Pestaña 2
         const puntos = document.querySelectorAll('.punto-grafica');
         const tooltip = document.getElementById('tooltip-svg');
         const contenedorSvg = document.getElementById('contenedor-svg');
@@ -670,13 +679,13 @@
             };
         });
 
-        // === 7. Lógica Cronología Viva VDT (Con escala detallada e imágenes ampliadas con evento click) ===
+        // === 7. Lógica Cronología VDT Sin Parpadeo ===
         const datosCronologia = [
             { mes: "Ago '25", carlos: 25030.17, javier: 62105.17, aaron: 429282.76 },
             { mes: "Sep '25", carlos: 23009.48, javier: 105939.66, aaron: 507389.66 },
             { mes: "Oct '25", carlos: 46025.00, javier: 157823.28, aaron: 298976.72 },
             { mes: "Nov '25", carlos: 98744.83, javier: 132137.07, aaron: 900280.17 },
-            { mes: "Dic '25", carlos: 96914.66, javier: 62985.34, aaron: 26876.72 },
+            { mes: "Dic '25", carlos: 96914.66, javier: 62985.34, aaron: 268767.2 },
             { mes: "Ene '26", carlos: 44329.31, javier: 31356.03, aaron: 151835.34 },
             { mes: "Feb '26", carlos: 75615.52, javier: 280544.83, aaron: 582231.90 },
             { mes: "Mar '26", carlos: 23277.59, javier: 108562.07, aaron: 952066.38 },
@@ -696,6 +705,9 @@
         const btnReset = document.getElementById('btnReset');
         const timeline = document.getElementById('videoTimeline');
         const timelineLabel = document.getElementById('timelineLabel');
+        const tooltipVdt = document.getElementById('tooltip-vdt');
+        const contenedorVdt = document.getElementById('contenedor-cronologia');
+        const nodosG = document.getElementById('nodosCronologia');
 
         function calcularY(valor) {
             if (valor <= 500000) {
@@ -706,15 +718,62 @@
             }
         }
 
-        function renderizarPaso(hastaIndice) {
-            const nodosG = document.getElementById('nodosCronologia');
-            const lineasG = document.getElementById('lineasCronologia');
-            if(!nodosG || !lineasG) return;
-            
+        function inicializarNodosEstaticos() {
+            if(!nodosG) return;
             nodosG.innerHTML = '';
-            lineasG.innerHTML = '';
 
-            if (hastaIndice < 0) return;
+            datosCronologia.forEach((d, i) => {
+                let x = i * 65;
+                let yCarlos = calcularY(d.carlos);
+                let yJavier = calcularY(d.javier);
+                let yAaron = calcularY(d.aaron);
+
+                nodosG.innerHTML += '<g id="grupo-mes-' + i + '" class="mes-grupo" style="opacity: 0; transition: opacity 0.3s ease;">' +
+                    '<g class="punto-vendedor-hover" data-nombre="Carlos" data-mes="' + d.mes + '" data-val="$' + d.carlos.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '" style="cursor:pointer;" transform="translate(' + x + ', ' + yCarlos + ')">' +
+                        '<circle cx="0" cy="0" r="14" fill="#9b59b6" stroke="#fff" stroke-width="2.5"/>' +
+                        '<image href="img/carlos.jpg" x="-12" y="-12" height="24" width="24" clip-path="circle(12px at center)" />' +
+                    '</g>' +
+                    '<g class="punto-vendedor-hover" data-nombre="Javier" data-mes="' + d.mes + '" data-val="$' + d.javier.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '" style="cursor:pointer;" transform="translate(' + x + ', ' + yJavier + ')">' +
+                        '<circle cx="0" cy="0" r="14" fill="#f1c40f" stroke="#fff" stroke-width="2.5"/>' +
+                        '<image href="img/javier.jpg" x="-12" y="-12" height="24" width="24" clip-path="circle(12px at center)" />' +
+                    '</g>' +
+                    '<g class="punto-vendedor-hover" data-nombre="Aarón" data-mes="' + d.mes + '" data-val="$' + d.aaron.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '" style="cursor:pointer;" transform="translate(' + x + ', ' + yAaron + ')">' +
+                        '<circle cx="0" cy="0" r="14" fill="#e74c3c" stroke="#fff" stroke-width="2.5"/>' +
+                        '<image href="img/aaron.jpg" x="-12" y="-12" height="24" width="24" clip-path="circle(12px at center)" />' +
+                    '</g>' +
+                '</g>';
+            });
+
+            activarTooltipsVdt();
+        }
+
+        function generarRutaCurva(puntos) {
+            if (puntos.length === 0) return "";
+            let d = "M " + puntos[0].x + " " + puntos[0].y;
+            for (let i = 0; i < puntos.length - 1; i++) {
+                let p0 = i === 0 ? puntos[0] : puntos[i - 1];
+                let p1 = puntos[i];
+                let p2 = puntos[i + 1];
+                let p3 = i === puntos.length - 2 ? p2 : puntos[i + 2];
+
+                let cp1x = p1.x + (p2.x - p0.x) / 6;
+                let cp1y = p1.y + (p2.y - p0.y) / 6;
+                let cp2x = p2.x - (p3.x - p1.x) / 6;
+                let cp2y = p2.y - (p3.y - p1.y) / 6;
+
+                d += " C " + cp1x + " " + cp1y + ", " + cp2x + " " + cp2y + ", " + p2.x + " " + p2.y;
+            }
+            return d;
+        }
+
+        function renderizarPaso(hastaIndice) {
+            for(let i = 0; i < datosCronologia.length; i++) {
+                let grupoMes = document.getElementById('grupo-mes-' + i);
+                if(grupoMes) {
+                    grupoMes.style.opacity = (i <= hastaIndice) ? "1" : "0";
+                    grupoMes.style.pointerEvents = (i <= hastaIndice) ? "auto" : "none";
+                }
+            }
 
             let puntosCarlos = [];
             let puntosJavier = [];
@@ -723,62 +782,58 @@
             for(let i = 0; i <= hastaIndice && i < datosCronologia.length; i++) {
                 let d = datosCronologia[i];
                 let x = i * 65; 
-
-                let yCarlos = calcularY(d.carlos);
-                let yJavier = calcularY(d.javier);
-                let yAaron = calcularY(d.aaron);
-
-                puntosCarlos.push({x: x, y: yCarlos});
-                puntosJavier.push({x: x, y: yJavier});
-                puntosAaron.push({x: x, y: yAaron});
-
-                // Nodos con imagen ampliada (tamaño 24x24) y eventos de clic inyectados
-                nodosG.innerHTML += '<g class="nodo-vendedor" transform="translate(' + x + ', 0)">' +
-                    // Carlos
-                    '<g style="cursor:pointer;" onclick="alert(\'Carlos (' + d.mes + '): $' + d.carlos.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '\')">' +
-                        '<circle cx="0" cy="' + yCarlos + '" r="14" fill="#9b59b6" stroke="#fff" stroke-width="2.5"/>' +
-                        '<image href="img/carlos.jpg" x="-12" y="' + (yCarlos-12) + '" height="24" width="24" clip-path="circle(12px at center)" />' +
-                    '</g>' +
-                    // Javier
-                    '<g style="cursor:pointer;" onclick="alert(\'Javier (' + d.mes + '): $' + d.javier.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '\')">' +
-                        '<circle cx="0" cy="' + yJavier + '" r="14" fill="#f1c40f" stroke="#fff" stroke-width="2.5"/>' +
-                        '<image href="img/javier.jpg" x="-12" y="' + (yJavier-12) + '" height="24" width="24" clip-path="circle(12px at center)" />' +
-                    '</g>' +
-                    // Aarón
-                    '<g style="cursor:pointer;" onclick="alert(\'Aarón (' + d.mes + '): $' + d.aaron.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '\')">' +
-                        '<circle cx="0" cy="' + yAaron + '" r="14" fill="#e74c3c" stroke="#fff" stroke-width="2.5"/>' +
-                        '<image href="img/aaron.jpg" x="-12" y="' + (yAaron-12) + '" height="24" width="24" clip-path="circle(12px at center)" />' +
-                    '</g>' +
-                '</g>';
+                puntosCarlos.push({x: x, y: calcularY(d.carlos)});
+                puntosJavier.push({x: x, y: calcularY(d.javier)});
+                puntosAaron.push({x: x, y: calcularY(d.aaron)});
             }
 
-            function generarRutaCurva(puntos) {
-                if (puntos.length === 0) return "";
-                let d = "M " + puntos[0].x + " " + puntos[0].y;
-                for (let i = 0; i < puntos.length - 1; i++) {
-                    let p0 = i === 0 ? puntos[0] : puntos[i - 1];
-                    let p1 = puntos[i];
-                    let p2 = puntos[i + 1];
-                    let p3 = i === puntos.length - 2 ? p2 : puntos[i + 2];
+            const pathCarlos = document.getElementById('pathCarlos');
+            const pathJavier = document.getElementById('pathJavier');
+            const pathAaron = document.getElementById('pathAaron');
 
-                    let cp1x = p1.x + (p2.x - p0.x) / 6;
-                    let cp1y = p1.y + (p2.y - p0.y) / 6;
-                    let cp2x = p2.x - (p3.x - p1.x) / 6;
-                    let cp2y = p2.y - (p3.y - p1.y) / 6;
-
-                    d += " C " + cp1x + " " + cp1y + ", " + cp2x + " " + cp2y + ", " + p2.x + " " + p2.y;
-                }
-                return d;
-            }
-
-            if (puntosCarlos.length > 1) {
-                lineasG.innerHTML += '<path d="' + generarRutaCurva(puntosCarlos) + '" fill="none" stroke="#9b59b6" stroke-width="3" />';
-                lineasG.innerHTML += '<path d="' + generarRutaCurva(puntosJavier) + '" fill="none" stroke="#f1c40f" stroke-width="3" />';
-                lineasG.innerHTML += '<path d="' + generarRutaCurva(puntosAaron) + '" fill="none" stroke="#e74c3c" stroke-width="3" />';
+            if (pathCarlos && puntosCarlos.length > 1) {
+                pathCarlos.setAttribute('d', generarRutaCurva(puntosCarlos));
+                pathJavier.setAttribute('d', generarRutaCurva(puntosJavier));
+                pathAaron.setAttribute('d', generarRutaCurva(puntosAaron));
+            } else {
+                if(pathCarlos) pathCarlos.setAttribute('d', '');
+                if(pathJavier) pathJavier.setAttribute('d', '');
+                if(pathAaron) pathAaron.setAttribute('d', '');
             }
 
             if (timeline) timeline.value = hastaIndice;
             if (timelineLabel) timelineLabel.innerHTML = datosCronologia[hastaIndice].mes;
+        }
+
+        function activarTooltipsVdt() {
+            const gruposPuntos = document.querySelectorAll('.punto-vendedor-hover');
+            if(!tooltipVdt || !contenedorVdt) return;
+
+            gruposPuntos.forEach(nodo => {
+                ['mousemove', 'touchstart'].forEach(evt => {
+                    nodo.addEventListener(evt, function(e) {
+                        const nombre = this.getAttribute('data-nombre');
+                        const mes = this.getAttribute('data-mes');
+                        const val = this.getAttribute('data-val');
+
+                        tooltipVdt.style.opacity = '1';
+                        tooltipVdt.innerHTML = nombre + ' (' + mes + '): ' + val;
+
+                        const rect = contenedorVdt.getBoundingClientRect();
+                        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                        tooltipVdt.style.left = (clientX - rect.left) + 'px';
+                        tooltipVdt.style.top = (clientY - rect.top - 20) + 'px';
+                    });
+                });
+
+                ['mouseout', 'touchend'].forEach(evt => {
+                    nodo.addEventListener(evt, function() {
+                        tooltipVdt.style.opacity = '0';
+                    });
+                });
+            });
         }
 
         function pausarAnimacion() {
@@ -833,6 +888,7 @@
             };
         }
 
+        inicializarNodosEstaticos();
         renderizarPaso(0);
     })();
 </script>
