@@ -136,50 +136,79 @@
         .prev-btn { left: 15px; }
         .next-btn { right: 15px; }
 
-        /* ========================================================
-           RESPONSIVE DESIGN (Media Queries para Teléfonos Móviles) 
-           ======================================================== */
-        @media (max-width: 768px) {
-            body { padding: 10px; font-size: 16px; }
-            .container { padding: 20px; }
-            h1 { font-size: 28px; margin-bottom: 20px; }
-            .tabs { flex-direction: column; gap: 10px; border-bottom: none; }
-            .tab-button { width: 100%; margin: 0; padding: 12px; font-size: 16px; border: 1px solid #ecf0f1; }
-            .titulo-seccion { font-size: 22px; margin-bottom: 20px; }
-            .total-anual-container { padding: 30px 15px; margin-bottom: 20px; }
-            .total-anual-container h2 { font-size: 18px; text-align: center; }
-            .total-anual-container .monto-gigante { font-size: 45px; }
-            .total-anual-container p { font-size: 14px; text-align: center; }
-            .summary-cards { flex-direction: column; gap: 15px; }
-            .card { padding: 20px; }
-            .card h3 { font-size: 14px; }
-            .card p { font-size: 28px; }
-            .chart-box { height: auto; }
-            
-            /* Ajustes Responsive específicos para Pestaña 7 */
-            .svg-container { height: 320px; padding-left: 45px; padding-right: 15px; }
-            #vdt > div:nth-child(2) { flex-direction: column; gap: 10px; padding: 10px; }
-            #vdt > div:nth-child(2) button { width: 100%; }
-            #vdt > div:nth-last-child(1) { flex-direction: column; gap: 10px; align-items: center; }
+        /* ==========================================================================
+           RESPONSIVE DESIGN (Media Queries Avanzadas Horizontal y Vertical) 
+           ========================================================================== */
 
-            .axis-label, .etiqueta-100k { font-size: 12px; }
-            .tooltip-punto { font-size: 14px; padding: 6px 10px; }
+        /* Tablets y Laptops Compactas (ancho <= 1024px) */
+        @media (max-width: 1024px) {
+            .container { max-width: 95%; padding: 25px; }
+            .svg-container { height: 400px; }
+        }
+
+        /* Orientación Vertical / Teléfonos Móviles en Vertical (ancho <= 768px) */
+        @media (max-width: 768px) {
+            body { padding: 8px; font-size: 15px; }
+            .container { padding: 15px; }
+            h1 { font-size: 26px; margin-bottom: 20px; }
             
-            .donut-container { flex-direction: column; gap: 30px; height: auto; }
-            .donut-chart { width: 220px; height: 220px; }
-            .donut-hole { width: 120px; height: 120px; }
-            .donut-hole span { font-size: 24px; }
-            .donut-hole small { font-size: 12px; }
-            .legend { gap: 15px; }
-            .legend-item { font-size: 16px; align-items: flex-start; }
-            .legend-sub { font-size: 14px; }
-            .color-box { width: 20px; height: 20px; }
-            .bars-container { height: 250px; }
-            .bar-label { font-size: 11px; margin-top: 8px; }
-            .bar-tooltip { font-size: 10px; margin-bottom: 5px; }
-            .instruccion { font-size: 14px; padding: 12px; }
+            .tabs { flex-direction: column; gap: 8px; border-bottom: none; margin-bottom: 20px; }
+            .tab-button { width: 100%; margin: 0; padding: 10px; font-size: 15px; border: 1px solid #ecf0f1; }
+            
+            .titulo-seccion { font-size: 20px; margin-bottom: 15px; }
+            
+            /* Pestaña 1 */
+            .total-anual-container { padding: 25px 15px; margin-bottom: 20px; }
+            .total-anual-container h2 { font-size: 16px; text-align: center; }
+            .total-anual-container .monto-gigante { font-size: 40px; }
+            .total-anual-container p { font-size: 13px; text-align: center; }
+            .summary-cards { flex-direction: column; gap: 12px; }
+            .card { padding: 15px; }
+            .card h3 { font-size: 13px; }
+            .card p { font-size: 24px; }
+
+            /* Pestañas de Gráficas y SVG (2 y 7) */
+            .chart-box { height: auto; }
+            .svg-container { height: 300px; padding-left: 35px; padding-right: 10px; }
+            
+            /* Reproductor Multimedia Pestaña 7 en Vertical */
+            #vdt > div:nth-child(2) { flex-direction: column; gap: 10px; padding: 10px; }
+            #vdt > div:nth-child(2) button { width: 100%; padding: 10px; font-size: 14px; }
+            #vdt > div:nth-last-child(1) { flex-direction: column; gap: 8px; align-items: center; font-size: 14px; }
+
+            /* Pestaña 3 (Dona) */
+            .donut-container { flex-direction: column; gap: 20px; height: auto; }
+            .donut-chart { width: 200px; height: 200px; }
+            .donut-hole { width: 110px; height: 110px; }
+            .donut-hole span { font-size: 22px; }
+            .donut-hole small { font-size: 11px; }
+            .legend { gap: 12px; }
+            .legend-item { font-size: 15px; align-items: flex-start; }
+            .legend-sub { font-size: 13px; }
+            .color-box { width: 18px; height: 18px; margin-right: 12px; }
+
+            /* Pestaña 4 (Barras) */
+            .bars-container { height: 220px; }
+            .bar-label { font-size: 11px; margin-top: 6px; }
+            .bar-tooltip { font-size: 10px; margin-bottom: 4px; }
+            .instruccion { font-size: 13px; padding: 10px; }
+
+            /* Carruseles (5 y 6) */
             .carousel-btn { width: 35px; height: 35px; font-size: 16px; }
-            .carousel-slide video, .carousel-slide img { max-height: 300px; }
+            .carousel-slide video, .carousel-slide img { max-height: 260px; }
+        }
+
+        /* Teléfonos en Horizontal / Landscape (max-height: 500px y orientados horizontalmente) */
+        @media (max-height: 550px) and (orientation: landscape) {
+            body { padding: 5px; }
+            .container { padding: 15px; max-width: 98%; }
+            h1 { font-size: 22px; margin-bottom: 15px; }
+            .tabs { flex-direction: row; gap: 5px; margin-bottom: 15px; }
+            .tab-button { padding: 8px 12px; font-size: 13px; }
+            .svg-container { height: 260px; }
+            .total-anual-container { padding: 15px; margin-bottom: 15px; }
+            .total-anual-container .monto-gigante { font-size: 35px; margin: 5px 0; }
+            .carousel-slide video, .carousel-slide img { max-height: 200px; }
         }
     </style>
 </head>
@@ -685,7 +714,7 @@
             { mes: "Sep '25", carlos: 23009.48, javier: 105939.66, aaron: 507389.66 },
             { mes: "Oct '25", carlos: 46025.00, javier: 157823.28, aaron: 298976.72 },
             { mes: "Nov '25", carlos: 98744.83, javier: 132137.07, aaron: 900280.17 },
-            { mes: "Dic '25", carlos: 96914.66, javier: 62985.34, aaron: 268767.2 },
+            { mes: "Dic '25", carlos: 96914.66, javier: 62985.34, aaron: 26876.72 },
             { mes: "Ene '26", carlos: 44329.31, javier: 31356.03, aaron: 151835.34 },
             { mes: "Feb '26", carlos: 75615.52, javier: 280544.83, aaron: 582231.90 },
             { mes: "Mar '26", carlos: 23277.59, javier: 108562.07, aaron: 952066.38 },
