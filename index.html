@@ -64,16 +64,17 @@
         .card p { margin: 0; font-size: 36px; font-weight: bold; color: #2c3e50; }
 
         /* === 2. SVG Vectorial (Tendencia Curva con Escala) === */
-        .svg-container { position: relative; width: 100%; height: 450px; padding-left: 60px; padding-right: 30px; box-sizing: border-box;}
+        .svg-container { position: relative; width: 100%; height: 480px; padding-left: 65px; padding-right: 30px; box-sizing: border-box;}
         svg { width: 100%; height: 100%; overflow: visible; }
-        .grid-line { stroke: #ecf0f1; stroke-width: 1.5; stroke-dasharray: 6,6; }
-        .axis-label { font-size: 16px; fill: #95a5a6; font-weight: bold;}
+        .grid-line { stroke: #ecf0f1; stroke-width: 1.2; stroke-dasharray: 4,4; }
+        .axis-label { font-size: 11px; fill: #95a5a6; font-weight: bold;}
         .linea-100k { stroke: #e74c3c; stroke-width: 3; stroke-dasharray: 8,6; opacity: 0.7;}
         .etiqueta-100k { fill: #e74c3c; font-size: 16px; font-weight: bold; }
         
         /* Hover de puntos en la gráfica */
         .punto-grafica { cursor: pointer; transition: 0.2s; }
         .punto-grafica:hover { r: 10; fill: #e74c3c; }
+        .nodo-vendedor { cursor: pointer; }
         .tooltip-punto { 
             position: absolute; background: rgba(44, 62, 80, 0.95); color: white; padding: 10px 15px; 
             border-radius: 6px; font-size: 18px; font-weight: bold; pointer-events: none; opacity: 0; transition: 0.2s;
@@ -380,22 +381,147 @@
 
     <!-- 7. Comparativo VDT -->
     <div id="vdt" class="tab-content">
-        <div class="titulo-seccion">Comparativo VDT</div>
-        <div style="text-align: center; padding: 100px 20px; color: #95a5a6; border: 2px dashed #bdc3c7; border-radius: 10px; background: #fdfdfd; margin-top: 30px;">
-            <svg style="width:50px; height:50px; fill:#bdc3c7; margin-bottom:15px;" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+        <div class="titulo-seccion">Comparativo VDT: Evoluci&oacute;n Cronol&oacute;gica (2025 vs 2026)</div>
+        
+        <!-- Controles estilo reproductor multimedia -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 25px; max-width: 900px; margin-left: auto; margin-right: auto; background: #2c3e50; padding: 12px 20px; border-radius: 8px;">
+            <button id="btnPlay" style="background: #2ecc71; color: white; border: none; padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px; min-width: 110px;">▶ Reproducir</button>
+            <button id="btnReset" style="background: #e74c3c; color: white; border: none; padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px;">🔄 Reiniciar</button>
+            
+            <!-- Línea de reproducción tipo YouTube -->
+            <div style="flex-grow: 1; display: flex; align-items: center; position: relative; margin-left: 10px;">
+                <input type="range" id="videoTimeline" min="0" max="13" value="0" step="1" style="width: 100%; cursor: pointer; accent-color: #3498db; height: 6px;">
+            </div>
+            <span id="timelineLabel" style="color: white; font-size: 14px; font-weight: bold; min-width: 85px; text-align: right;">Ago '25</span>
+        </div>
+
+        <!-- Contenedor Gráfica SVG Cronología Viva -->
+        <div class="svg-container" id="contenedor-cronologia" style="height: 520px;">
+            <div id="tooltip-cronologia" class="tooltip-punto"></div>
+            
+            <svg viewBox="-85 0 945 350" id="svgCronologia">
+                <!-- Escala personalizada: 700k, 900k, 1.1M, 1.3M, 1.5M y pasos de 25k desde 0 hasta 500k -->
+                <text x="-30" y="16" class="axis-label" text-anchor="end">1.5M</text>
+                <line x1="0" y1="12" x2="840" y2="12" class="grid-line" />
+
+                <text x="-30" y="36" class="axis-label" text-anchor="end">1.3M</text>
+                <line x1="0" y1="32" x2="840" y2="32" class="grid-line" />
+
+                <text x="-30" y="56" class="axis-label" text-anchor="end">1.1M</text>
+                <line x1="0" y1="52" x2="840" y2="52" class="grid-line" />
+
+                <text x="-30" y="76" class="axis-label" text-anchor="end">900k</text>
+                <line x1="0" y1="72" x2="840" y2="72" class="grid-line" />
+
+                <text x="-30" y="96" class="axis-label" text-anchor="end">700k</text>
+                <line x1="0" y1="92" x2="840" y2="92" class="grid-line" />
+
+                <text x="-30" y="121" class="axis-label" text-anchor="end" fill="#e74c3c" font-weight="bold">500k</text>
+                <line x1="0" y1="117" x2="840" y2="117" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,4" />
+
+                <text x="-30" y="136" class="axis-label" text-anchor="end">475k</text>
+                <line x1="0" y1="132" x2="840" y2="132" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="151" class="axis-label" text-anchor="end">450k</text>
+                <line x1="0" y1="147" x2="840" y2="147" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="166" class="axis-label" text-anchor="end">425k</text>
+                <line x1="0" y1="162" x2="840" y2="162" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="181" class="axis-label" text-anchor="end">400k</text>
+                <line x1="0" y1="177" x2="840" y2="177" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="196" class="axis-label" text-anchor="end">375k</text>
+                <line x1="0" y1="192" x2="840" y2="192" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="211" class="axis-label" text-anchor="end">350k</text>
+                <line x1="0" y1="207" x2="840" y2="207" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="226" class="axis-label" text-anchor="end">325k</text>
+                <line x1="0" y1="222" x2="840" y2="222" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="241" class="axis-label" text-anchor="end">300k</text>
+                <line x1="0" y1="237" x2="840" y2="237" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="256" class="axis-label" text-anchor="end">275k</text>
+                <line x1="0" y1="252" x2="840" y2="252" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="271" class="axis-label" text-anchor="end">250k</text>
+                <line x1="0" y1="267" x2="840" y2="267" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="286" class="axis-label" text-anchor="end">225k</text>
+                <line x1="0" y1="282" x2="840" y2="282" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="301" class="axis-label" text-anchor="end">200k</text>
+                <line x1="0" y1="297" x2="840" y2="297" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="316" class="axis-label" text-anchor="end">175k</text>
+                <line x1="0" y1="312" x2="840" y2="312" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="331" class="axis-label" text-anchor="end">150k</text>
+                <line x1="0" y1="327" x2="840" y2="327" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="346" class="axis-label" text-anchor="end">125k</text>
+                <line x1="0" y1="342" x2="840" y2="342" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="361" class="axis-label" text-anchor="end">100k</text>
+                <line x1="0" y1="357" x2="840" y2="357" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="376" class="axis-label" text-anchor="end">75k</text>
+                <line x1="0" y1="372" x2="840" y2="372" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="391" class="axis-label" text-anchor="end">50k</text>
+                <line x1="0" y1="387" x2="840" y2="387" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="406" class="axis-label" text-anchor="end">25k</text>
+                <line x1="0" y1="402" x2="840" y2="402" class="grid-line" stroke-dasharray="2,2" />
+
+                <text x="-30" y="421" class="axis-label" text-anchor="end">0</text>
+                <line x1="0" y1="417" x2="840" y2="417" stroke="#bdc3c7" stroke-width="2" />
+
+                <!-- Capa para las líneas curvas de tendencia -->
+                <g id="lineasCronologia"></g>
+
+                <!-- Nodos y Avatares Interactivos -->
+                <g id="nodosCronologia"></g>
+
+                <!-- Etiquetas Eje X (Meses de referencia) -->
+                <text x="0" y="445" class="axis-label" text-anchor="middle">Ago '25</text>
+                <text x="65" y="445" class="axis-label" text-anchor="middle">Sep '25</text>
+                <text x="130" y="445" class="axis-label" text-anchor="middle">Oct '25</text>
+                <text x="195" y="445" class="axis-label" text-anchor="middle">Nov '25</text>
+                <text x="260" y="445" class="axis-label" text-anchor="middle">Dic '25</text>
+                <text x="325" y="445" class="axis-label" text-anchor="middle">Ene '26</text>
+                <text x="390" y="445" class="axis-label" text-anchor="middle">Feb '26</text>
+                <text x="455" y="445" class="axis-label" text-anchor="middle">Mar '26</text>
+                <text x="520" y="445" class="axis-label" text-anchor="middle">Abr '26</text>
+                <text x="585" y="445" class="axis-label" text-anchor="middle">May '26</text>
+                <text x="650" y="445" class="axis-label" text-anchor="middle">Jun '26</text>
+                <text x="715" y="445" class="axis-label" text-anchor="middle">Jul '26</text>
+                <text x="780" y="445" class="axis-label" text-anchor="middle">Ago '26</text>
+                <text x="845" y="445" class="axis-label" text-anchor="middle">Sep '26</text>
             </svg>
-            <h3 style="margin:0; font-size: 22px;">Espacio Reservado</h3>
-            <p style="margin-top:10px; font-size:16px;">La funcionalidad para el Comparativo VDT será implementada aquí próximamente.</p>
+        </div>
+        
+        <!-- Leyenda de Vendedores y Rutas de Imagen -->
+        <div style="display: flex; justify-content: center; gap: 40px; margin-top: 30px; font-weight: bold; color: #34495e;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 15px; height: 15px; background: #9b59b6; border-radius: 50%;"></div> Carlos (Ruta: <span style="color:#7f8c8d; font-weight:normal;">img/carlos.jpg</span>)
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 15px; height: 15px; background: #f1c40f; border-radius: 50%;"></div> Javier (Ruta: <span style="color:#7f8c8d; font-weight:normal;">img/javier.jpg</span>)
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 15px; height: 15px; background: #e74c3c; border-radius: 50%;"></div> Aarón (Ruta: <span style="color:#7f8c8d; font-weight:normal;">img/aaron.jpg</span>)
+            </div>
         </div>
     </div>
 
 </div>
 
 <script>
-    // Ejecución robusta garantizada
     (function() {
-        // 1. Lógica para Pestañas (Totalmente optimizada para 7 pestañas)
+        // 1. Lógica para Pestañas
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
 
@@ -543,6 +669,171 @@
                 track.style.transform = `translateX(-${currentSlide * 100}%)`;
             };
         });
+
+        // === 7. Lógica Cronología Viva VDT (Con escala detallada e imágenes ampliadas con evento click) ===
+        const datosCronologia = [
+            { mes: "Ago '25", carlos: 25030.17, javier: 62105.17, aaron: 429282.76 },
+            { mes: "Sep '25", carlos: 23009.48, javier: 105939.66, aaron: 507389.66 },
+            { mes: "Oct '25", carlos: 46025.00, javier: 157823.28, aaron: 298976.72 },
+            { mes: "Nov '25", carlos: 98744.83, javier: 132137.07, aaron: 900280.17 },
+            { mes: "Dic '25", carlos: 96914.66, javier: 62985.34, aaron: 26876.72 },
+            { mes: "Ene '26", carlos: 44329.31, javier: 31356.03, aaron: 151835.34 },
+            { mes: "Feb '26", carlos: 75615.52, javier: 280544.83, aaron: 582231.90 },
+            { mes: "Mar '26", carlos: 23277.59, javier: 108562.07, aaron: 952066.38 },
+            { mes: "Abr '26", carlos: 35462.07, javier: 65894.83, aaron: 337859.48 },
+            { mes: "May '26", carlos: 77859.48, javier: 431330.17, aaron: 314118.97 },
+            { mes: "Jun '26", carlos: 88008.62, javier: 138431.03, aaron: 363098.28 },
+            { mes: "Jul '26", carlos: 80360.34, javier: 420862.93, aaron: 566065.52 },
+            { mes: "Ago '26", carlos: 59389.66, javier: 130956.90, aaron: 1459627.59 },
+            { mes: "Sep '26", carlos: 110454.31, javier: 154493.97, aaron: 337925.86 }
+        ];
+
+        let pasoActual = 0;
+        let reproduciendo = false;
+        let intervaloCronologia = null;
+
+        const btnPlay = document.getElementById('btnPlay');
+        const btnReset = document.getElementById('btnReset');
+        const timeline = document.getElementById('videoTimeline');
+        const timelineLabel = document.getElementById('timelineLabel');
+
+        function calcularY(valor) {
+            if (valor <= 500000) {
+                return 417 - (valor / 500000) * 300;
+            } else {
+                let excedente = Math.min(valor - 500000, 1000000);
+                return 117 - (excedente / 1000000) * 105;
+            }
+        }
+
+        function renderizarPaso(hastaIndice) {
+            const nodosG = document.getElementById('nodosCronologia');
+            const lineasG = document.getElementById('lineasCronologia');
+            if(!nodosG || !lineasG) return;
+            
+            nodosG.innerHTML = '';
+            lineasG.innerHTML = '';
+
+            if (hastaIndice < 0) return;
+
+            let puntosCarlos = [];
+            let puntosJavier = [];
+            let puntosAaron = [];
+
+            for(let i = 0; i <= hastaIndice && i < datosCronologia.length; i++) {
+                let d = datosCronologia[i];
+                let x = i * 65; 
+
+                let yCarlos = calcularY(d.carlos);
+                let yJavier = calcularY(d.javier);
+                let yAaron = calcularY(d.aaron);
+
+                puntosCarlos.push({x: x, y: yCarlos});
+                puntosJavier.push({x: x, y: yJavier});
+                puntosAaron.push({x: x, y: yAaron});
+
+                // Nodos con imagen ampliada (tamaño 24x24) y eventos de clic inyectados
+                nodosG.innerHTML += '<g class="nodo-vendedor" transform="translate(' + x + ', 0)">' +
+                    // Carlos
+                    '<g style="cursor:pointer;" onclick="alert(\'Carlos (' + d.mes + '): $' + d.carlos.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '\')">' +
+                        '<circle cx="0" cy="' + yCarlos + '" r="14" fill="#9b59b6" stroke="#fff" stroke-width="2.5"/>' +
+                        '<image href="img/carlos.jpg" x="-12" y="' + (yCarlos-12) + '" height="24" width="24" clip-path="circle(12px at center)" />' +
+                    '</g>' +
+                    // Javier
+                    '<g style="cursor:pointer;" onclick="alert(\'Javier (' + d.mes + '): $' + d.javier.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '\')">' +
+                        '<circle cx="0" cy="' + yJavier + '" r="14" fill="#f1c40f" stroke="#fff" stroke-width="2.5"/>' +
+                        '<image href="img/javier.jpg" x="-12" y="' + (yJavier-12) + '" height="24" width="24" clip-path="circle(12px at center)" />' +
+                    '</g>' +
+                    // Aarón
+                    '<g style="cursor:pointer;" onclick="alert(\'Aarón (' + d.mes + '): $' + d.aaron.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '\')">' +
+                        '<circle cx="0" cy="' + yAaron + '" r="14" fill="#e74c3c" stroke="#fff" stroke-width="2.5"/>' +
+                        '<image href="img/aaron.jpg" x="-12" y="' + (yAaron-12) + '" height="24" width="24" clip-path="circle(12px at center)" />' +
+                    '</g>' +
+                '</g>';
+            }
+
+            function generarRutaCurva(puntos) {
+                if (puntos.length === 0) return "";
+                let d = "M " + puntos[0].x + " " + puntos[0].y;
+                for (let i = 0; i < puntos.length - 1; i++) {
+                    let p0 = i === 0 ? puntos[0] : puntos[i - 1];
+                    let p1 = puntos[i];
+                    let p2 = puntos[i + 1];
+                    let p3 = i === puntos.length - 2 ? p2 : puntos[i + 2];
+
+                    let cp1x = p1.x + (p2.x - p0.x) / 6;
+                    let cp1y = p1.y + (p2.y - p0.y) / 6;
+                    let cp2x = p2.x - (p3.x - p1.x) / 6;
+                    let cp2y = p2.y - (p3.y - p1.y) / 6;
+
+                    d += " C " + cp1x + " " + cp1y + ", " + cp2x + " " + cp2y + ", " + p2.x + " " + p2.y;
+                }
+                return d;
+            }
+
+            if (puntosCarlos.length > 1) {
+                lineasG.innerHTML += '<path d="' + generarRutaCurva(puntosCarlos) + '" fill="none" stroke="#9b59b6" stroke-width="3" />';
+                lineasG.innerHTML += '<path d="' + generarRutaCurva(puntosJavier) + '" fill="none" stroke="#f1c40f" stroke-width="3" />';
+                lineasG.innerHTML += '<path d="' + generarRutaCurva(puntosAaron) + '" fill="none" stroke="#e74c3c" stroke-width="3" />';
+            }
+
+            if (timeline) timeline.value = hastaIndice;
+            if (timelineLabel) timelineLabel.innerHTML = datosCronologia[hastaIndice].mes;
+        }
+
+        function pausarAnimacion() {
+            clearInterval(intervaloCronologia);
+            reproduciendo = false;
+            if (btnPlay) btnPlay.innerHTML = "▶ Reproducir";
+        }
+
+        function iniciarAnimacion() {
+            if (pasoActual >= datosCronologia.length - 1) {
+                pasoActual = 0;
+            }
+            clearInterval(intervaloCronologia);
+            reproduciendo = true;
+            if (btnPlay) btnPlay.innerHTML = "⏸ Pausa";
+
+            intervaloCronologia = setInterval(function() {
+                if (pasoActual < datosCronologia.length) {
+                    renderizarPaso(pasoActual);
+                    pasoActual++;
+                } else {
+                    pausarAnimacion();
+                    pasoActual = datosCronologia.length - 1;
+                }
+            }, 700);
+        }
+
+        if(btnPlay) {
+            btnPlay.onclick = function() {
+                if (reproduciendo) {
+                    pausarAnimacion();
+                } else {
+                    iniciarAnimacion();
+                }
+            };
+        }
+
+        if(btnReset) {
+            btnReset.onclick = function() {
+                pausarAnimacion();
+                pasoActual = 0;
+                renderizarPaso(0);
+                iniciarAnimacion();
+            };
+        }
+
+        if(timeline) {
+            timeline.oninput = function() {
+                pausarAnimacion();
+                pasoActual = parseInt(this.value);
+                renderizarPaso(pasoActual);
+            };
+        }
+
+        renderizarPaso(0);
     })();
 </script>
 
