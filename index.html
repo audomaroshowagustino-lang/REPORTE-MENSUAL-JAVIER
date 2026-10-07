@@ -136,17 +136,82 @@
         .prev-btn { left: 15px; }
         .next-btn { right: 15px; }
 
+        /* === Estilos para el Componente Comparativo Técnico (Sección 6 o Integrado) === */
+        .comparativa-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            max-width: 1050px;
+            margin: 20px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .comp-header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #3498db;
+        }
+        .comp-logo-box { max-height: 60px; display: flex; align-items: center; }
+        .comp-logo { max-height: 50px; object-fit: contain; }
+        .comp-vs-badge {
+            font-weight: bold; font-size: 20px; color: #e74c3c; background: #fff;
+            padding: 8px 15px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .comp-body { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+        .comp-producto { text-align: center; width: 22%; }
+        .comp-lata-img img { width: 100%; max-width: 180px; height: auto; object-fit: contain; transition: transform 0.3s; }
+        .comp-lata-img img:hover { transform: scale(1.03); }
+        .comp-prod-nombre { margin-top: 10px; font-size: 18px; color: #2c3e50; letter-spacing: 1px; }
+        .comp-tabla-wrapper { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+        .comp-fila {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 14px; border-bottom: 1px solid #f1f1f1; font-size: 15px;
+            position: relative; cursor: pointer; transition: background-color 0.2s ease; flex-wrap: wrap;
+        }
+        .comp-fila:hover { background-color: #f4f6f7; border-radius: 6px; }
+        .comp-propiedad { color: #34495e; font-weight: 600; text-align: center; flex-grow: 1; }
+        .comp-valor-izq, .comp-valor-der { font-weight: bold; color: #2c3e50; width: 135px; text-align: center; position: relative; }
+        .comp-fila.destaque { background-color: #fdfefe; border-bottom: 1px solid #eee; }
+
+        .mejor-opcion {
+            background-color: #e8f8f5; color: #117a65 !important; border: 1px solid #a3e4d7;
+            border-radius: 6px; padding: 4px 6px; box-shadow: 0 2px 4px rgba(46, 204, 113, 0.1);
+        }
+        .badge-mejor {
+            font-size: 10px; background: #2ecc71; color: white; padding: 1px 4px;
+            border-radius: 4px; vertical-align: middle; margin-left: 4px; text-transform: uppercase;
+        }
+
+        .alerta-opcion {
+            background-color: #fef5e7; color: #b9770e !important; border: 1px solid #f8c471;
+            border-radius: 6px; padding: 4px 6px; box-shadow: 0 2px 4px rgba(243, 156, 18, 0.1);
+        }
+        .badge-alerta {
+            font-size: 10px; background: #f39c12; color: white; padding: 1px 4px;
+            border-radius: 4px; vertical-align: middle; margin-left: 4px; text-transform: uppercase;
+        }
+
+        .param-desc {
+            width: 100%; font-size: 13px; color: #7f8c8d; background: #f8f9fa;
+            padding: 6px 10px; border-left: 3px solid #3498db; border-radius: 0 4px 4px 0;
+            margin-top: 6px; display: none; animation: fadeInDesc 0.3s ease-in-out;
+        }
+        .comp-fila.activo .param-desc { display: block; }
+        @keyframes fadeInDesc { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
         /* ==========================================================================
            RESPONSIVE DESIGN (Media Queries Avanzadas Horizontal y Vertical) 
            ========================================================================== */
-
-        /* Tablets y Laptops Compactas (ancho <= 1024px) */
         @media (max-width: 1024px) {
             .container { max-width: 95%; padding: 25px; }
             .svg-container { height: 400px; }
         }
 
-        /* Orientación Vertical / Teléfonos Móviles en Vertical (ancho <= 768px) */
         @media (max-width: 768px) {
             body { padding: 8px; font-size: 15px; }
             .container { padding: 15px; }
@@ -157,7 +222,6 @@
             
             .titulo-seccion { font-size: 20px; margin-bottom: 15px; }
             
-            /* Pestaña 1 */
             .total-anual-container { padding: 25px 15px; margin-bottom: 20px; }
             .total-anual-container h2 { font-size: 16px; text-align: center; }
             .total-anual-container .monto-gigante { font-size: 40px; }
@@ -167,16 +231,13 @@
             .card h3 { font-size: 13px; }
             .card p { font-size: 24px; }
 
-            /* Pestañas de Gráficas y SVG (2 y 7) */
             .chart-box { height: auto; }
             .svg-container { height: 300px; padding-left: 35px; padding-right: 10px; }
             
-            /* Reproductor Multimedia Pestaña 7 en Vertical */
             #vdt > div:nth-child(2) { flex-direction: column; gap: 10px; padding: 10px; }
             #vdt > div:nth-child(2) button { width: 100%; padding: 10px; font-size: 14px; }
             #vdt > div:nth-last-child(1) { flex-direction: column; gap: 8px; align-items: center; font-size: 14px; }
 
-            /* Pestaña 3 (Dona) */
             .donut-container { flex-direction: column; gap: 20px; height: auto; }
             .donut-chart { width: 200px; height: 200px; }
             .donut-hole { width: 110px; height: 110px; }
@@ -187,18 +248,21 @@
             .legend-sub { font-size: 13px; }
             .color-box { width: 18px; height: 18px; margin-right: 12px; }
 
-            /* Pestaña 4 (Barras) */
             .bars-container { height: 220px; }
             .bar-label { font-size: 11px; margin-top: 6px; }
             .bar-tooltip { font-size: 10px; margin-bottom: 4px; }
             .instruccion { font-size: 13px; padding: 10px; }
 
-            /* Carruseles (5 y 6) */
             .carousel-btn { width: 35px; height: 35px; font-size: 16px; }
             .carousel-slide video, .carousel-slide img { max-height: 260px; }
+
+            .comp-body { flex-direction: column; }
+            .comp-producto { width: 100%; margin-bottom: 15px; }
+            .comp-lata-img img { max-width: 120px; }
+            .comp-fila { font-size: 13px; padding: 8px; }
+            .comp-valor-izq, .comp-valor-der { width: 100px; font-size: 12px; }
         }
 
-        /* Teléfonos en Horizontal / Landscape (max-height: 500px y orientados horizontalmente) */
         @media (max-height: 550px) and (orientation: landscape) {
             body { padding: 5px; }
             .container { padding: 15px; max-width: 98%; }
@@ -372,7 +436,7 @@
                 <p id="cliente2-monto">$60,016</p>
             </div>
             <div class="card" style="border-top-color: #9b59b6;">
-                <h3 id="cliente3-nombre">3. SIT</h3>
+                <h3>3. SIT</h3>
                 <p id="cliente3-monto">$34,460</p>
             </div>
         </div>
@@ -399,10 +463,11 @@
         <p style="text-align:center; color:#7f8c8d; margin-top:20px;">Desliza para ver más videos formativos.</p>
     </div>
 
-    <!-- 6. Comparativos (Carrusel de Imágenes) -->
+    <!-- 6. Comparativos (Carrusel de Imágenes e Integración de la Tabla Comparativa Técnica) -->
     <div id="comparativos" class="tab-content">
-        <div class="titulo-seccion">Comparativos Visuales</div>
-        <div class="carousel-wrapper carousel-imagenes">
+        <div class="titulo-seccion">Comparativos Visuales y Técnicos</div>
+        
+        <div class="carousel-wrapper carousel-imagenes" style="margin-bottom: 40px;">
             <button class="carousel-btn prev-btn" data-carousel="track-imagenes" data-dir="-1">&#10094;</button>
             <div class="carousel-track" id="track-imagenes" data-total="4" data-current="0">
                 <div class="carousel-slide"><img src="IMAGENES/comparativo100.png" alt="Comparativo 1"></div>
@@ -412,7 +477,101 @@
             </div>
             <button class="carousel-btn next-btn" data-carousel="track-imagenes" data-dir="1">&#10095;</button>
         </div>
-        <p style="text-align:center; color:#7f8c8d; margin-top:20px;">Navega por las galerías comparativas.</p>
+
+        <!-- Componente de Comparativa Técnica Dinámica con Tooltips Inferiores y Alertas -->
+        <div class="comparativa-container">
+            <div class="comp-header">
+                <div class="comp-logo-box">
+                    <!-- Ruta para el logo de la izquierda -->
+                    <img src="IMAGENES/logo-comex.png" alt="Logo Comex" class="comp-logo">
+                </div>
+                <div class="comp-vs-badge">VS</div>
+                <div class="comp-logo-box">
+                    <!-- Ruta para el logo de la derecha -->
+                    <img src="IMAGENES/logo-sherwin.png" alt="Logo Sherwin Williams" class="comp-logo">
+                </div>
+            </div>
+
+            <div class="comp-body">
+                <div class="comp-producto">
+                    <div class="comp-lata-img">
+                        <!-- Ruta para la lata izquierda -->
+                        <img src="IMAGENES/lata-rp6.png" alt="Lata RP-6">
+                    </div>
+                    <h3 class="comp-prod-nombre">RP-6</h3>
+                </div>
+
+                <div class="comp-tabla-wrapper">
+                    <div class="comp-fila" data-desc="Área teórica que puede cubrir un litro aplicado a 1 mil de espesor seco. Mayor cobertura representa mayor rendimiento por litro.">
+                        <span class="comp-valor-izq mejor-opcion">27.58 m2 / L <span class="badge-mejor">Mejor</span></span>
+                        <span class="comp-propiedad">Rendimiento m2 (1 mils secos)</span>
+                        <span class="comp-valor-der">16.9 m2 / L</span>
+                    </div>
+
+                    <div class="comp-fila" data-desc="Rendimiento práctico estimado en condiciones reales de aplicación a un espesor industrial estándar de 3 mils.">
+                        <span class="comp-valor-izq mejor-opcion">6.89 m2 / L <span class="badge-mejor">Mejor</span></span>
+                        <span class="comp-propiedad">Rendimiento a (3 mils secos)</span>
+                        <span class="comp-valor-der">4.97 L</span>
+                    </div>
+
+                    <div class="comp-fila" data-desc="Tiempo requerido para que la película de recubrimiento seque superficialmente y evite adherencia de polvo.">
+                        <span class="comp-valor-izq">4 Hr a 32°C</span>
+                        <span class="comp-propiedad">Secado al tacto</span>
+                        <span class="comp-valor-der mejor-opcion">5 - 15 min <span class="badge-mejor">Mejor</span></span>
+                    </div>
+
+                    <div class="comp-fila" data-desc="Ventana de tiempo óptima para aplicar capas sucesivas de recubrimiento sin comprometer la adherencia.">
+                        <span class="comp-valor-izq">12 Hr a 32°C</span>
+                        <span class="comp-propiedad">Tiempo repintado</span>
+                        <span class="comp-valor-der mejor-opcion">4 horas <span class="badge-mejor">Mejor</span></span>
+                    </div>
+
+                    <div class="comp-fila" data-desc="Proporción de material que permanece sobre la superficie tras evaporarse los solventes. Mayor porcentaje reduce el riesgo de contracción y fallas.">
+                        <span class="comp-valor-izq mejor-opcion">70% <span class="badge-mejor">Mejor</span></span>
+                        <span class="comp-propiedad">Solidos por Volumen</span>
+                        <span class="comp-valor-der">43.50%</span>
+                    </div>
+
+                    <div class="comp-fila" data-desc="Proporción volumétrica de los componentes (A y B) para iniciar el proceso químico de curado.">
+                        <span class="comp-valor-izq">1:1</span>
+                        <span class="comp-propiedad">Relacion mezcla</span>
+                        <span class="comp-valor-der">4:1</span>
+                    </div>
+
+                    <div class="comp-fila" data-desc="Volumen total de mezcla líquida obtenido por cada kit comercial adquirido.">
+                        <span class="comp-valor-izq mejor-opcion">36 L <span class="badge-mejor">Mejor</span></span>
+                        <span class="comp-propiedad">Litros por KIT</span>
+                        <span class="comp-valor-der">18 L</span>
+                    </div>
+
+                    <div class="comp-fila destaque" data-desc="Inversión monetaria global necesaria para adquirir el kit completo de producto. ADVERTENCIA: El costo por KIT NO refleja por sí misma una medida de ahorro.">
+                        <span class="comp-valor-izq">$ 7,654.93</span>
+                        <span class="comp-propiedad">Costo por KIT</span>
+                        <span class="comp-valor-der alerta-opcion">$ 7,088.14 <span class="badge-alerta">Atención</span></span>
+                    </div>
+
+                    <div class="comp-fila destaque" data-desc="Costo resultante por cada litro de producto listo para ser aplicado en obra.">
+                        <span class="comp-valor-izq mejor-opcion">$ 212.64 <span class="badge-mejor">Mejor</span></span>
+                        <span class="comp-propiedad">Costo por litro</span>
+                        <span class="comp-valor-der">$ 393.79</span>
+                    </div>
+
+                    <div class="comp-fila destaque" data-desc="Costo final de aplicación por metro cuadrado considerando rendimiento real y espesor recomendado. Clave para el presupuesto global.">
+                        <span class="comp-valor-izq mejor-opcion">$ 30.86 <span class="badge-mejor">Mejor</span></span>
+                        <span class="comp-propiedad">Costo por m2</span>
+                        <span class="comp-valor-der">$ 79.55</span>
+                    </div>
+                </div>
+
+                <div class="comp-producto">
+                    <div class="comp-lata-img">
+                        <!-- Ruta para la lata derecha -->
+                        <img src="IMAGENES/lata-promax.png" alt="Lata Promax">
+                    </div>
+                    <h3 class="comp-prod-nombre">PROMAX</h3>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- 7. Comparativo VDT -->
@@ -501,7 +660,7 @@
                 <line x1="0" y1="342" x2="840" y2="342" class="grid-line" stroke-dasharray="2,2" />
 
                 <!-- Línea Roja de Referencia en los 100k -->
-                <text x="-30" y="361" class="axis-label" text-anchor="end" fill="#e74c3c" font-weight="bold">100k</text>
+                <text x="-30" y="361" class="axis-label" text-anchor="end" fill="#e74c3c" font-weight:bold">100k</text>
                 <line x1="0" y1="357" x2="840" y2="357" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,4" />
 
                 <text x="-30" y="376" class="axis-label" text-anchor="end">75k</text>
@@ -707,6 +866,25 @@
                 track.setAttribute('data-current', currentSlide);
                 track.style.transform = `translateX(-${currentSlide * 100}%)`;
             };
+        });
+
+        // === 6. Lógica Dinámica para la Tabla Comparativa Técnica (Tooltips inferiores) ===
+        const filasComp = document.querySelectorAll('.comp-fila');
+        filasComp.forEach(fila => {
+            const textoDesc = fila.getAttribute('data-desc');
+            if (textoDesc) {
+                const descDiv = document.createElement('div');
+                descDiv.className = 'param-desc';
+                descDiv.innerText = textoDesc;
+                fila.appendChild(descDiv);
+
+                fila.addEventListener('mouseenter', () => {
+                    fila.classList.add('activo');
+                });
+                fila.addEventListener('mouseleave', () => {
+                    fila.classList.remove('activo');
+                });
+            }
         });
 
         // === 7. Lógica Cronología VDT Sin Parpadeo ===
